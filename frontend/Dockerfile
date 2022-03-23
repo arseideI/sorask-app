@@ -1,10 +1,8 @@
-FROM NODE:17-slim
+FROM node:17-slim
 
 WORKDIR /user/src/app
 
 COPY ./package.json ./
-
-COPY ./yarn.lock ./
 
 RUN npm install
 
