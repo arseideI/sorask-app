@@ -2,6 +2,8 @@ version: "3.7"
 services:
   backend:
     build: ./backend
+    container_name: 'backend'
+    restart: always
     ports:
     - "5000:5000"
     volumes:
@@ -19,6 +21,7 @@ services:
       MYSQL_ROOT_PASSWORD: 'password'
   frontend:
     build: ./frontend
+    container_name: 'frontend'
     ports:
       - "3000:3000" 
     volumes:
@@ -27,6 +30,7 @@ services:
       - backend
   db:
     image: mysql:8.0-oracle
+    container_name: 'db'
     restart: always
     environment:
       MYSQL_HOST: 'localhost'
@@ -47,6 +51,19 @@ services:
     volumes:
       - db:/var/lib/mysql
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+  
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8081:80
 # Names our volume
 volumes:
   db:
