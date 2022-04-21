@@ -1,8 +1,8 @@
+from __main__ import app
 from flask import request, jsonify, Blueprint
 
-login_bp = Blueprint('login', __name__,)
 
-@login_bp.route('/login')
+@app.route('/login')
 def login():
     return {"Rota": "teste"}
 

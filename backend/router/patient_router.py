@@ -1,21 +1,21 @@
-from crypt import methods
-from flask import request, jsonify, Blueprint
+from __main__ import app
+from flask import request, jsonify
 
-patient_bp = Blueprint('patient', __name__,)
+from controller.patient_controller import PatientController
 
-
-@patient_bp.route("/patient", methods=["GET"])
+@app.route("/patient", methods=["GET"])
 def get_all_patients():
-    pass
+    patientes = PatientController.get_patient_list()
+    return jsonify(patientes)
 
-@patient_bp.route("/patient", methods=["POST"])
+@app.route("/patient", methods=["POST"])
 def register_patient():
-    pass
+    return jsonify({})
 
-@patient_bp.route("/patient/<id>", methods=["GET"])
+@app.route("/patient/<id>", methods=["GET"])
 def get_patient(id: int):
-    return {"id": int(id)}
+    return jsonify({"id": int(id)})
 
-@patient_bp.route("/patient/<id>", methods=["PUT"])
+@app.route("/patient/<id>", methods=["PUT"])
 def update_patient(id: int):
-    return {"id": int(id), "status": "Atualizado"}
+    return jsonify({"id": int(id), "status": "Atualizado"})
