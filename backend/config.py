@@ -14,3 +14,8 @@ mysql = MySQL(app)
 # Global Variables
 PATIENT_TABLE = "patients"
 NURSES_TABLE = "nurses"
+
+
+#COLUMNS TABLE
+NURSES_COLUMNS = "(name, registration, cpf, email, password, status)"
+PATIENT_COLUMNS = "(name, register, email)"

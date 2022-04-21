@@ -10,11 +10,19 @@ def get_all_patients():
 
 @app.route("/patient", methods=["POST"])
 def register_patient():
-    return jsonify({})
+    body_data = request.get_json()
+    patient = PatientController.register_patient(patient_data=body_data)
+    return jsonify(patient)
 
 @app.route("/patient/<id>", methods=["GET"])
 def get_patient(id: int):
-    return jsonify({"id": int(id)})
+    patient = PatientController.get_patient(id=id)
+    return jsonify(patient)
+
+@app.route("/patient/<id>", methods=["DELETE"])
+def delete_patient(id: int):
+    patient = PatientController.delete_patient(id=id)
+    return jsonify(patient)
 
 @app.route("/patient/<id>", methods=["PUT"])
 def update_patient(id: int):
