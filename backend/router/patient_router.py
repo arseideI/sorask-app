@@ -26,4 +26,6 @@ def delete_patient(id: int):
 
 @app.route("/patient/<id>", methods=["PUT"])
 def update_patient(id: int):
-    return jsonify({"id": int(id), "status": "Atualizado"})
+    body_data = request.get_json()
+    patient = PatientController.update_patient(id=id, data=body_data)
+    return jsonify(patient)

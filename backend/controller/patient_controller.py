@@ -18,3 +18,7 @@ class PatientController:
     def delete_patient(id: int):
         patient = Patient().delete(id=id)
         return patient
+    
+    def update_patient(id: int, data: dict):
+        patient = Patient().update(id=id, data=data)
+        return patient
