@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
 
 # App initialization
@@ -12,6 +12,9 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 # Route register
 from router import login_router
 from router import patient_router
+from router import nurse_router
+from router import symptom_router
+
 
 
 if __name__ == "__main__":

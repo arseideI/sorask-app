@@ -1,21 +1,21 @@
 from services.db import DataService
-from config import mysql, PATIENT_TABLE, build_update_str
+from config import mysql, NURSES_TABLE, build_update_str
 
-class Patient:
+class Nurse():
     def __init__(self):
-        self.database = DataService(mysql=mysql, table=PATIENT_TABLE)
-
-    def get_patient(self, id: int):
+        self.database = DataService(mysql=mysql, table=NURSES_TABLE)
+    
+    def get_nurse(self, id: int):
         data = self.database.get_by_id(id=id)
         return data
-    
-    def patients_list(self):
+
+    def get_nurse_list(self):
         data = self.database.get_all_data()
         return data
     
-    def register_patient(self, patient: dict):
-
-        data = self.database.insert(data=patient)
+    def register_nurse(self, nurse: dict):
+        values = (nurse["name"], nurse["registration"], nurse["cpf"], nurse["email"], nurse["password"], nurse["status"])
+        data = self.database.insert(data=values)
         return data
     
     def delete(self, id: int):
@@ -26,3 +26,6 @@ class Patient:
         columns = build_update_str(data=data)
         changed = self.database.update(id=id, data=columns)
         return changed
+    
+    
+    

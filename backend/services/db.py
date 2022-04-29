@@ -1,5 +1,5 @@
 import MySQLdb
-from config import NURSES_COLUMNS, PATIENT_COLUMNS, PATIENT_TABLE, NURSES_TABLE
+from config import NURSES_COLUMNS, PATIENT_COLUMNS, PATIENT_TABLE, NURSES_TABLE, SYMPTOM_COLUMNS, SYMPTOM_TABLE
 
 
 class DataService():
@@ -41,15 +41,14 @@ class DataService():
             all_data = all_data[0]
         return all_data
     
-    def insert(self, data: dict):
+    def insert(self, data: tuple):
         """
         Method to insert data to data base
         :param table: name of table to insert data
         """
         columns = self.get_table_columns()
         try:
-            values = (data["name"], data["register"], data["email"])
-            query = f"""INSERT INTO {self.table} {columns} VALUES {values}"""
+            query = f"""INSERT INTO {self.table} {columns} VALUES {data}"""
             self.connect.execute(query)
             self.mysql.connection.commit()
         except Exception as exc:
@@ -98,6 +97,8 @@ class DataService():
             columns = PATIENT_COLUMNS
         elif self.table == NURSES_TABLE:
             columns = NURSES_COLUMNS
+        elif self.table == SYMPTOM_TABLE:
+            columns = SYMPTOM_COLUMNS
         else:
             print("Tabela não reconhecida")
         return columns

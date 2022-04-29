@@ -1,0 +1,132 @@
+_id,symptom,
+1,Upper abdominal pain,Dor abdominal superior
+2,Lower abdominal pain,Dor abdominal inferior
+4,Alcohol abuse,Abuso de álcool
+5,Anxiety (Nervousness),Ansiedade (nervosismo)
+6,Arm ache or pain,Dor de braço ou dor
+7,Back ache or pain,Dor nas costas ou dor
+8,Bleeding tendency,Tendência de sangramento
+9,Blood in vomit,Sangue em vômito
+11,Pain or soreness of breast,Dor ou dor da mama
+13,Chest pressure,Pressão torácica
+14,Chills,Arrepios
+15,Change in behavior,Mudança de comportamento
+17,Cough,Tosse
+19,Depressed,Depressivo
+21,Dizziness,Tontura
+22,Double vision (Diplopia),Visão dupla (Diplopia)
+23,Ear pressure,Pressão da orelha
+24,Pain in the ear,Dor no ouvido
+26,Eye pain (Irritation),Dor nos olhos (irritação)
+27,Facial pain,Dor facial
+28,Fainting,Desmaiar
+29,Fever,Febre
+30,Fever in the returning traveler,Febre no viajante que retorna
+31,Fever of unknown origin,Febre de origem desconhecida
+32,Flank pain,Dor de flanco
+33,Frequent urination (Frequency),Micção frequente (frequência)
+38,Delusions or hallucinations,Delírios ou alucinações
+41,Headache,Dor de cabeça
+46,Hives,Urticária
+48,Hypothermia (Low temperature),Hipotermia (baixa temperatura)
+49,Incontinence (leaking urine),Incontinência (urina com vazamento)
+51,Insomnia (Trouble sleeping),Insônia (problemas para dormir)
+52,Skin itching,Coceira na pele
+54,Kidney pain (Flank pain),Dor nos rins (dor de flanco)
+57,Leg ache or pain,Dor na perna ou dor
+58,Swelling of both legs,Inchaço das duas pernas
+59,Lethargy (Sluggishness),Letargia (lentidão)
+61,Mouth pain,Dor na boca
+62,Muscle pain,Dor muscular
+64,Nasal bleeding,Sangramento nasal
+67,Neck ache or pain,Dor no pescoço ou dor
+68,Neck swelling,Inchaço do pescoço
+69,Numbness,Dormência
+70,Obesity,Obesidade
+71,Overdose,Overdose
+73,Heart pulsations and palpitations,Pulsações cardíacas e palpitações
+77,Poisoning,Envenenamento
+81,Rash,Irritação na pele
+87,Seizure,Apreensão
+88,Shortness of breath,Falta de ar
+89,Shoulder ache or pain,Dor no ombro ou dor
+90,Sinus pain and pressure,Dor e pressão do seio
+93,Sore throat,Dor de garganta
+94,Speech problem,Problema de fala
+96,Substance abuse (Drug abuse),Abuso de substâncias (abuso de drogas)
+98,Swallowing problem (Dysphagia),Problema de engolir (disfagia)
+102,Trauma,Trauma
+104,Unsteady gait (Trouble walking),Marca instável (Problema de caminhada)
+105,Vaginal bleeding,Sangramento vaginal
+110,Vaginal pain,Dor vaginal
+111,Vertigo (Room spinning),Vertigem (rotação da sala)
+112,Visual problems,Problemas visuais
+113,Vomiting,Vomitando
+114,General weakness,Fraqueza geral
+116,Tired,Cansado
+120,Throat pain,Dor de garganta
+121,Tremors,Tremores
+123,"Weight loss, unexplained","Perda de peso, inexplicável"
+128,Inconsolable baby,Bebê inconsolável
+131,Swollen lymph nodes (Large lymph nodes),Linfonodos inchados (linfonodos grandes)
+132,Failure to thrive,Falha em prosperar
+139,Itchy rash (Pruritic rash),Erupção coceira (erupção cutânea pruritica)
+146,Learning difficulties,Aprendendo dificuldades
+147,Blood in urine (Hematuria),Sangue na urina (hematúria)
+148,Urinary retention (Inability to urinate),Retenção urinária (incapacidade de urinar)
+150,Choking,Sufocando
+152,Painful rash,Erupção cutânea dolorosa
+156,Vomiting coffee ground material,Material de chão de café vomitante
+157,Ringing in ears (Tinnitus),Tocando nas orelhas (zumbido)
+158,Mouth ulcers,Úlceras na boca
+159,Mouth swelling,Inchaço da boca
+160,Eye redness,Vermelhidão ocular
+163,Bleeding gums,Sangramento nas gengivas
+164,Loss of balance,Perda de equilíbrio
+171,Muscle spasm,Espasmo muscular
+173,Abdominal swelling (Stomach swelling),Inchaço abdominal (inchaço do estômago)
+176,Hand numbness (paresthesias),Dormência manual (parestesias)
+178,Hemoptysis (Coughing blood),Hemoptise (tossindo sangue)
+179,Jaundice (Yellowing skin),Icterícia (pele amarelada)
+183,Blister (Pocket of fluid),Blister (bolso do fluido)
+187,Jaw pain,Dor na mandíbula
+188,Impotence,Impotência
+190,Pustule (Collection of pus),Pustule (coleção de pus)
+193,Skin swelling,Inchaço da pele
+194,Lip swelling,Inchaço labial
+195,Eye swelling,Inchaço ocular
+197,Visual flashing lights,Luzes visuais piscando
+198,Eye floaters,Olhos flutuantes
+199,Amenorrhea (No menstruation),Amenorréia (sem menstruação)
+200,Blurry vision,Visão embaçada
+202,Painful gums,Gengivas dolorosas
+203,Swollen gums,Gengivas inflamadas
+207,Low heart rate,Baixa frequência cardíaca
+208,Foot itching,Pegamento de pé
+209,Hot flashes,Ondas de calor
+211,Infertility (Female),Infertilidade (fêmea)
+212,Increased facial hair,Aumento dos pêlos faciais
+213,Arm swelling,Inchaço do braço
+216,Ear swelling,Inchaço da orelha
+225,Arm itching,Arm coceira
+226,Hand redness,Vermelhidão da mão
+227,Foot redness,Vermelhidão do pé
+228,Arm redness,Vermelhidão do braço
+230,Hand itching,Prurência da mão
+232,Steatorrhea (Excess fat in stool),Steatorréia (excesso de gordura nas fezes)
+234,Armpit pain,Dor na axila
+236,Nasal congestion,Congestão nasal
+238,Skin sores,Feridas da pele
+241,Arm numbness (paresthesias),Dormência do braço (parestesias)
+242,Leg numbness (paresthesias),Dormência da perna (parestesias)
+243,Foot numbness (paresthesias),Dormência do pé (parestesias)
+244,Face numbness (paresthesias),Dormência do rosto (parestesias)
+247,Facial droop (weakness),Capa facial (fraqueza)
+257,Snoring,Ronco
+262,Chest pain,Dor no peito
+264,Stomach and abdominal pain,Dor estomacal e abdominal
+275,Low back ache or pain,Dor lombar ou dor
+292,Confusion,Confusão
+293,Headache and weakness,Dor de cabeça e fraqueza
+294,Confusion and headache,Confusão e dor de cabeça
+295,Nipple discharge,Secreção mamilar
