@@ -1,5 +1,6 @@
 import MySQLdb
-from config import NURSES_COLUMNS, PATIENT_COLUMNS, PATIENT_TABLE, NURSES_TABLE, SYMPTOM_COLUMNS, SYMPTOM_TABLE
+from config import (NURSES_COLUMNS, PATIENT_COLUMNS, PATIENT_TABLE, NURSES_TABLE,
+ SYMPTOM_COLUMNS, SYMPTOM_TABLE, CLASSIFICATION_COLUMNS, CLASSIFICATION_TABLE, CLASSIFICATION_SYMPTOMS_COLUMNS, CLASSIFICATION_SYMPTOMS_TABLE) 
 
 
 class DataService():
@@ -77,7 +78,7 @@ class DataService():
         Method to insert data to data base
         :param table: name of table to insert data
         """
-        columns = self.get_table_columns()
+
         try:
             query = f"""UPDATE {self.table} SET {data} WHERE id={id}"""
             self.connect.execute(query)
@@ -99,6 +100,10 @@ class DataService():
             columns = NURSES_COLUMNS
         elif self.table == SYMPTOM_TABLE:
             columns = SYMPTOM_COLUMNS
+        elif self.table == CLASSIFICATION_TABLE:
+            columns = CLASSIFICATION_COLUMNS
+        elif self.table == CLASSIFICATION_SYMPTOMS_TABLE:
+            columns = CLASSIFICATION_SYMPTOMS_COLUMNS
         else:
             print("Tabela não reconhecida")
         return columns

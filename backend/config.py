@@ -15,12 +15,16 @@ mysql = MySQL(app)
 PATIENT_TABLE = "patients"
 NURSES_TABLE = "nurses"
 SYMPTOM_TABLE = "symptoms"
+CLASSIFICATION_TABLE = "classifications"
+CLASSIFICATION_SYMPTOMS_TABLE = "classifications_symptoms"
 
 
 #COLUMNS TABLE
 NURSES_COLUMNS = "(name, registration, cpf, email, password, status)"
 PATIENT_COLUMNS = "(name, register, email)"
 SYMPTOM_COLUMNS = "(name, flag)"
+CLASSIFICATION_COLUMNS = "(NurseID, PatientID, ClassificationSymptomID)"
+CLASSIFICATION_SYMPTOMS_COLUMNS = "(symptomID, classificationID)"
 
 #FLAGS
 RED_FLAG = 0
@@ -28,7 +32,7 @@ YELLOW_FLAG = 1
 GREEN_FLAG = 2
 BLUE_FLAG = 3
 
-def build_update_str(self, data: dict):
+def build_update_str(data: dict):
         query = ""
         for key in data:
             if query:
@@ -38,3 +42,16 @@ def build_update_str(self, data: dict):
             else:
                 query = f"{query}{key}={data[key]}"
         return query
+
+
+
+
+
+# CREATE TABLE classifications (
+# 	id int NOT NULL,
+#     NurseID int NOT NULL,
+#     PatientID int NOT NULL,
+#     Symptom int NOT NULL,
+#     PRIMARY KEY (id),
+#     FOREIGN KEY (NurseID)REFERENCES nurses (id)ON DELETE RESTRICT ON UPDATE CASCADE
+# )

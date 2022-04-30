@@ -14,7 +14,7 @@ from router import login_router
 from router import patient_router
 from router import nurse_router
 from router import symptom_router
-
+from router import classification_router
 
 
 if __name__ == "__main__":
