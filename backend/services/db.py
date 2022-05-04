@@ -25,12 +25,12 @@ class DataService():
         self.connect.close()
         return all_data
     
-    def get_by_id(self, id: int):
+    def get_by_id(self, query: int):
         """
         Search method that get a object by id
         :param id: object id
         """
-        self.connect.execute(f''' SELECT * FROM {self.table} WHERE id={id}''')
+        self.connect.execute(f''' SELECT * FROM {self.table} {query}''')
         all_data = []
         for data in self.connect:
             all_data.append(data)
@@ -42,29 +42,28 @@ class DataService():
             all_data = all_data[0]
         return all_data
     
-    def insert(self, data: tuple):
+    def insert(self, query: str):
         """
         Method to insert data to data base
         :param table: name of table to insert data
         """
-        columns = self.get_table_columns()
         try:
-            query = f"""INSERT INTO {self.table} {columns} VALUES {data}"""
-            self.connect.execute(query)
+            query_str = f"""INSERT INTO {self.table} {query}"""
+            self.connect.execute(query_str)
             self.mysql.connection.commit()
         except Exception as exc:
             self.mysql.connection.rollback()
-            return {"status": "Falha ao inserir dado", "msg": str(exc)}
+            return {"status": f"Falha ao inserir dado na tabela: {self.table}", "msg": str(exc)}
         self.connect.close()
         return {"status": "Inserido com sucesso", "id": self.connect.lastrowid}
     
-    def delete(self, id: int):
+    def delete(self, id_query: str):
         """
         Delete method used to remove data from database
         :param id: object id
         """
         try:
-            query = f"""DELETE FROM {self.table} WHERE id={id}"""
+            query = f"""DELETE FROM {self.table} {id_query}"""
             self.connect.execute(query)
             self.mysql.connection.commit()
         except Exception as exc:
@@ -73,15 +72,15 @@ class DataService():
         self.connect.close()
         return {"status": "Removido com sucesso", "id": self.connect.lastrowid}
     
-    def update(self,id: int, data: dict):
+    def update(self, query: str):
         """
         Method to insert data to data base
         :param table: name of table to insert data
         """
 
         try:
-            query = f"""UPDATE {self.table} SET {data} WHERE id={id}"""
-            self.connect.execute(query)
+            query_str = f"""UPDATE {self.table} {query}"""
+            self.connect.execute(query_str)
             self.mysql.connection.commit()
         except Exception as exc:
             self.mysql.connection.rollback()
@@ -107,3 +106,29 @@ class DataService():
         else:
             print("Tabela não reconhecida")
         return columns
+    
+    def get_list_by_id(self, query: int):
+        """
+        Search method that get a object by id
+        :param id: object id
+        """
+        self.connect.execute(f''' SELECT * FROM {self.table} {query}''')
+        all_data = []
+        for data in self.connect:
+            all_data.append(data)
+
+        self.mysql.connection.commit()
+        self.connect.close()
+        
+        return all_data
+    
+    def custom_query(self, query:str):
+        self.connect.execute(query)
+        all_data = []
+        for data in self.connect:
+            all_data.append(data)
+
+        self.mysql.connection.commit()
+        
+
+        return all_data

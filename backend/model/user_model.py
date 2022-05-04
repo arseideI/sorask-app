@@ -1,14 +1,14 @@
 from services.db import DataService
-from config import mysql, PATIENT_TABLE
+from config import mysql, USER_TABLE
 import logging
 
-class Patient:
+class User:
     def __init__(self):
-        self.database = DataService(mysql=mysql, table=PATIENT_TABLE)
+        self.database = DataService(mysql=mysql, table=USER_TABLE)
 
-    def get_patient(self, id: int):
-        query = f"WHERE ID_PATIENT={id}"
-        data = self.database.get_by_id(id_query=query)
+    def get_user(self, id: int):
+        query = f"WHERE ID_USER={id}"
+        data = self.database.get_by_id(query=query)
         return data
     
     def patients_list(self):
