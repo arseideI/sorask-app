@@ -11,3 +11,38 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.ant-btn-primary {
+  background-color: #35D49B !important;
+  border-color:#35D49B !important
+}
+
+.ant-pagination-item-active{
+  border-color:#35D49B !important;
+}
+
+li.ant-pagination-item-active a {
+  color:#35D49B !important;
+}
+
+.ant-menu-item-selected {
+  background-color: #35D49B !important;
+}
+
+.ant-menu-item-selected span {
+  color: white;
+}
+
+.ant-menu-item-active{
+  color: #35D49B !important;
+}
+
+.ant-card-extra .ant-btn-default {
+  border-color:#35D49B !important;
+  color: #35D49B;
+}
+
+.ant-card-extra:hover .ant-btn-default{
+  color: #fff !important;
+  background-color: #35D49B !important;
+}

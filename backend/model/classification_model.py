@@ -48,7 +48,8 @@ class Classification():
             
             pc_classification = self.database.custom_query(query=query_cl)
             classification["symptoms"] = pc_classification
-            all_classification.append(classification)
+            formatted_classification = self.format_classification(classification=classification)
+            all_classification.append(formatted_classification)
 
         return all_classification
     
@@ -71,7 +72,10 @@ class Classification():
                         "id_classification": id_classification,
                         "id_symptom": symptom
                     }
-                    data_symptom = ClassificationSymptom().register_classification_symptom(classification_symptom=object_query)
+                    try:
+                        data_symptom = ClassificationSymptom().register_classification_symptom(classification_symptom=object_query)
+                    except Exception as exc:
+                        logging.exception(f"[SYMPTOM][register_symptom] Erro ao inserir novo sintoma de classificação: {exc} ")
         return data
     
     def delete(self, id: int):
@@ -94,15 +98,38 @@ class Classification():
         builded = ""
         return builded
     
-    def format_classification(self, patient: dict, nurse: dict, classification: dict, symptoms: list):
-        
+    def format_classification(self, classification: dict):
+        symptoms = classification.get("symptoms", [])
         formatted = {
             "id" : classification.get("ID_PATIENT_CLASSIFICATION"),
             "date_in": classification.get("DT_PATIENT_ENTRY"),
-            "date_out": classification.get("DT_PATIENT_EXIT"), 
-            "patient": patient,
-            "nurse": nurse,
-            "symptoms": symptoms
+            "date_out": classification.get("DT_PATIENT_EXIT"),
+            "flag": classification.get("ID_FLAG"),
+            "patient": {
+                "id": classification.get("ID_PATIENT"),
+                "name": classification.get("NM_PATIENT")
+            },
+            "nurse": {
+                "id": classification.get("ID_NURSE"),
+                "name": classification.get("NM_USER")
+            },
+            "symptoms": []
+        }
+        all_symptoms = []
+        for symptom in symptoms:
+            formatted_symptom = self.format_symptom(symptom=symptom)
+            all_symptoms.append(formatted_symptom)
+        formatted["symptoms"] = all_symptoms
+        return formatted
+
+    
+    def format_symptom(self, symptom: dict):
+
+        formatted = {
+            "id": symptom.get("ID_SYMPTOM"),
+            "name": symptom.get("NM_SYMPTOM"),
+            "flag": symptom.get("ID_FLAG"),
+            "classification_id": symptom.get("ID_PATIENT_CLASSIFICATION")
         }
 
         return formatted
