@@ -46,3 +46,22 @@ li.ant-pagination-item-active a {
   color: #fff !important;
   background-color: #35D49B !important;
 }
+.ant-form-item {
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+}
+
+.flags .ant-form-item-control-input-content label{
+  margin: 5px !important;
+  font-size: 18pt !important;
+  border: 2px solid !important;
+
+}
+
+.flags .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+  border: 3px solid #000 !important;
+}
+.labelTitle .ant-form-item-label label{
+  color: #00bee0 !important;
+  font-weight: bold;
+}

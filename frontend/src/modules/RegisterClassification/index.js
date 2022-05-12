@@ -1,10 +1,20 @@
-import {Card, Form, Input, Button, InputNumber, Divider, Select} from 'antd';
+import { Card, Form, Input, Row, Col, Divider, Select, Button, Radio, Checkbox } from 'antd';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFlag } from '@fortawesome/free-solid-svg-icons'
 
 const { Option } = Select;
 
 const ClassificationRegister = () => {
-    const children = [
+    const patients = [
+
+        <Option key={1} value='1$Lucas Tavares$1772345434'>Lucas Tavares | 1772345434</Option>,
+        <Option key={2} value='2$Thaís Tavares$4534213234'>Thaís Tavares | 4534213234</Option>,
+        <Option key={3} value='3$Alexandre Rangel$460798456'>Alexandre Rangel | 460798456</Option>,
+        <Option key={4} value='4$Susy Anne Ramos$5634398549'>Susy Anne Ramos | 5634398549</Option>
         
+        ]
+    const children = [
+
         <Option key={1} value='1$Dor abdominal superior'>Dor abdominal superior</Option>,
         <Option key={2} value='2$Dor abdominal inferior'>Dor abdominal inferior</Option>,
         <Option key={3} value='3$Abuso de álcool'>Abuso de álcool</Option>,
@@ -64,31 +74,152 @@ const ClassificationRegister = () => {
         <Option key={57} value='57$Trauma'>Trauma</Option>
     ];
     function handleChange(value) {
-        console.log(`selected ${value}`);
-      }
+        }
+    const onFinish = (values) => {
+        console.log('Success=====================:', JSON.stringify(values));
+        fetch('http://localhost:5000/', {
+            method: 'POST',
+            headers: {'Content-Type': "application/json"},
+            body: JSON.stringify(values)
+        }).then(()=>{
+            console.log("Request Realizado com sucesso")
+        })
+      };
     return (
-        <Card title={"Nova Classificação"} style={{margin: 20}}>
-            <Form>
-                <Form.Item label="Número CNS" required>
-                    <Input placeholder='Número da CNS do paciente'/>
-                </Form.Item>
-                <Divider/>
-                <Form.Item label="Motívo da consulta" required>
-                <>
-    <Select
-      mode="multiple"
-      allowClear
-      style={{ width: '100%' }}
-      placeholder="Selecione os sintomas"
-      onChange={handleChange}
-    >
-      {children}
-    </Select>
-    
-  </>
+        <Card title={"Nova Classificação"} style={{ margin: 20 }}>
+            <Form layout='vertical' onFinish={onFinish}>
+                <Row>
+                    <Col span={12}>
+                        <Form.Item label="Número CNS ou Nome" required name="user" >
+                        <Select
+                            showSearch
+                            placeholder="Digite o nome ou o numero da cns"
+                            optionFilterProp="children"
+                            filterOption={(input, option) =>
+                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                            }
+                            filterSort={(optionA, optionB) =>
+                            optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
+                            }
+                        >
+                                        {patients}
+                                    </Select>
+                        </Form.Item>
+                    </Col>
+                </Row>
+                <Divider />
+                <Row>
+                    <Col span={12}>
+                        <Row>
+                        <Col span={20} className="labelTitle">
+                            <Form.Item label="Classificação"  required name="symptoms">
+                                <Select
+                                    mode="multiple"
+                                    allowClear
+                                    style={{ width: '100%' }}
+                                    placeholder="Selecione os sintomas"
+                                    onChange={handleChange}
+                                >
+                                    {children}
+                                </Select>
+
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col span={6} >
+                            <Form.Item label="Pressão Arterial" name="arterial">
+                                <Input placeholder='Pressão em mmHg' />
+                            </Form.Item>
+
+                            </Col>
+                        <Col span={6}>
+                            <Form.Item label="Temperatura" name="temperature">
+                                <Input placeholder='Temperatura em ºC' />
+                            </Form.Item>
+                        </Col>
+                        <Col span={8}>
+                            <Form.Item label="Frequência Respiratória" name="respiratory">
+                                <Input placeholder='Frequência em mpm' />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    
+                <Row>
+                    <Col span={8}>
+                            <Form.Item label="Frequência Cardiaca" name="heart">
+                                <Input placeholder='Frequência em bpm' />
+                            </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                            <Form.Item label="Saturação Oxigênio" name="oxygen">
+                                <Input placeholder='Saturação em %' />
+                            </Form.Item>
+                    </Col>
+                </Row>
+                    
+                <Row>
+                    <Col span={20}>
+                            <Form.Item label="Adicionar observações" name="observation">
+                                <Input.TextArea rows={4}/>
+                            </Form.Item>
+                    </Col>
+                </Row>
+                    </Col>
+                    <Col span={10}>
+                        <Row>
+                            <Col span={20} className="flags">
+                            <Form.Item
+                                name="flags"
+                                label="Vulnerabilidade / Classificação"
+                                rules={[{ required: true, message: 'Selecione um' }]}
+                            >
+                                <Radio.Group>
+                                <Radio.Button value="a" style={{color: "#00BEE0", borderColor: "#00BEE0"}}><FontAwesomeIcon icon={faFlag} /></Radio.Button>
+                                <Radio.Button value="b" style={{color: "#3CE157", borderColor: "#3CE157"}}><FontAwesomeIcon icon={faFlag} /></Radio.Button>
+                                <Radio.Button value="c" style={{color: "#EFE54A", borderColor: "#EFE54A"}}><FontAwesomeIcon icon={faFlag} /></Radio.Button>
+                                <Radio.Button value="d" style={{color: "#E18E3C", borderColor: "#E18E3C"}}><FontAwesomeIcon icon={faFlag} /></Radio.Button>
+                                <Radio.Button value="e" style={{color: "#E13C3C", borderColor: "#E13C3C"}}><FontAwesomeIcon icon={faFlag} /></Radio.Button>
+                                </Radio.Group>
+                            </Form.Item>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col span={20} className="labelTitle">
+                            <Form.Item name="internal" label="Encaminhamento Interno">
+                                <Radio.Group>
+                                <Radio value="a">Liberar Paciênte</Radio>
+                                <Radio value="b" Checked>Encaminhar para Atendimento</Radio>
+                                </Radio.Group>
+                            </Form.Item>
+                            </Col>
+                        </Row>
+
+                        <Row>
+                            <Col span={20} className="labelTitle">
+                            <Form.Item name="setor" label="Setor">
+                                <Checkbox.Group>
+                                    <Checkbox value="A" style={{ lineHeight: '32px' }}>Curativo</Checkbox>
+                                    <Checkbox value="B" style={{ lineHeight: '32px' }}>Nebulização</Checkbox>
+                                    <Checkbox value="C" style={{ lineHeight: '32px' }}>Atendimento Médico</Checkbox>
+                                    <Checkbox value="D" style={{ lineHeight: '32px' }}>Vacina</Checkbox>
+                                    <Checkbox value="E" style={{ lineHeight: '32px' }}>Exames</Checkbox>
+                                    <Checkbox value="F" style={{ lineHeight: '32px' }}>Odontologia</Checkbox>
+                                    <Checkbox value="G" style={{ lineHeight: '32px' }}>Procedimentos</Checkbox>
+                                </Checkbox.Group>
+                            </Form.Item>
+                            </Col>
+                        </Row>
+
+                    </Col>
+                </Row>
+                
+                
+                <Form.Item >
+                    <Button type='primary' htmlType="submit">Salvar</Button>
                 </Form.Item>
             </Form>
-            
+
         </Card>
     );
 };
