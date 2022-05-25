@@ -7,7 +7,6 @@ import ClassificationList from './modules/ClassificationList';
 import ClassificationRegister from './modules/RegisterClassification';
 import SideMenu from './components/SideMenu';
 
-
 const { Sider, Content, Footer, Header } = Layout;
 
 export default function App() {

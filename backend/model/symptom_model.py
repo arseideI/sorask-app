@@ -13,6 +13,8 @@ class Symptom():
 
     def get_symptom_list(self):
         data = self.database.get_all_data()
+        for symptom in data:
+            symptom["HASH_NAME"] = f"{symptom['ID_SYMPTOM']}${symptom['NM_SYMPTOM']}${symptom['ID_FLAG']}"
         return data
     
     def register_symptom(self, symptom: dict):

@@ -59,7 +59,7 @@ li.ant-pagination-item-active a {
 }
 
 .flags .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
-  border: 3px solid #000 !important;
+  background-color: #e2e2e2;
 }
 .labelTitle .ant-form-item-label label{
   color: #00bee0 !important;

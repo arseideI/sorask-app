@@ -8,6 +8,11 @@ def get_all_classifications():
     classificationes = ClassificationController().get_classification_list()
     return jsonify(classificationes)
 
+@app.route("/classification/form", methods=["GET"])
+def get_all_classifications_form_data():
+    classificationes = ClassificationController().get_data_to_classification_form()
+    return jsonify(classificationes)
+
 @app.route("/classification", methods=["POST"])
 def register_classification():
     body_data = request.get_json()
