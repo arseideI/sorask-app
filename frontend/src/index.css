@@ -65,3 +65,14 @@ li.ant-pagination-item-active a {
   color: #00bee0 !important;
   font-weight: bold;
 }
+
+.divisor{
+  background: #35D49B !important;
+  height: 2px;
+}
+
+.linha {
+  height: 200px;
+}
+
+/* https://recharts.org/en-US/examples/StackedBarChart */

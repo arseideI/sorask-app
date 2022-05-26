@@ -19,14 +19,13 @@ const ClassificationRegister = () => {
         .then(response => response.json())
         .then(data => getValues(data))
         .then(setSteste({loading: false}))
-        console.log("valor: ", steste.loading)
+        
     }, []);
 
     
     let getValues = async (s) => {
         let symptom_list = []
         let patient_list = []
-        console.log("retorno: ", s)
         s.patients.forEach(element => {
             let values = "" + element.id + ""
             patient_list.push(<Option key={element.id} value={values}>{element.name}</Option>)
@@ -64,7 +63,7 @@ const ClassificationRegister = () => {
         })
       };
     return (
-        <Card title={"Nova Classificação"} style={{ margin: 20 }}>
+        <Card title={"Classificação de paciente"} style={{ margin: 20 }}>
             <Form layout='vertical' onFinish={onFinish}>
                 <Row>
                     <Col span={12}>
@@ -85,7 +84,7 @@ const ClassificationRegister = () => {
                         </Form.Item>
                     </Col>
                 </Row>
-                <Divider />
+                <Divider className='divisor'/>
                 <Row>
                     <Col span={12}>
                         <Row>
@@ -144,7 +143,7 @@ const ClassificationRegister = () => {
                     </Col>
                 </Row>
                     </Col>
-                    <Col span={10}>
+                    <Col span={12}>
                         <Row>
                             <Col span={20} className="flags">
                             <Form.Item

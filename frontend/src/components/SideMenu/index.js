@@ -9,13 +9,18 @@ const SideMenu = () => {
     
     const menuItems = [
         {
-            key: "/",
+            key: "dashboard",
+            label: "Painel"      
+        },
+        {
+            key: "classifications",
             label: 'Classificação'
         },
         {
             key: "register-classification",
             label: "Nova Classificação"      
         }
+        
     ];
 
     const onMenuItemClicked = (menuItem) => {
