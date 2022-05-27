@@ -72,7 +72,27 @@ li.ant-pagination-item-active a {
 }
 
 .linha {
-  height: 200px;
+  height: 350px;
 }
+
+.titleBox{
+  color: rgb(70, 70, 70) !important;
+  text-transform: uppercase !important;
+  font-weight: bold;
+  border-bottom: #35D49B 2px solid !important;
+  margin-bottom: 5px;
+}
+
+.BoxCard{
+  padding: 15px;
+
+}
+
+.blockCard{
+  background-color: #e6e6e6;
+  border-radius: 23px;
+  padding: 5px;
+}
+
 
 /* https://recharts.org/en-US/examples/StackedBarChart */
