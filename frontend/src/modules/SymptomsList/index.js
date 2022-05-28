@@ -66,7 +66,7 @@ const SymptomsList = () => {
         }
     ];
     const addNewClassification = () => {
-            return (<Link to={'register-symptoms'}>
+            return (<Link to={'/register-symptoms'}>
                 <Button>Adicionar sintoma {'\u2800'} <FontAwesomeIcon icon={faSyringe} /></Button>
             </Link>);
     }

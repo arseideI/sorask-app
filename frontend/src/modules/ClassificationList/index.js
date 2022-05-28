@@ -78,7 +78,7 @@ const ClassificationList = () => {
         }
     ];
     const addNewClassification = () => {
-            return (<Link to={'register-classification'}>
+            return (<Link to={'/register-classification'}>
                 <Button>Adicionar nova {'\u2800'} <FontAwesomeIcon icon={faFlag} /></Button>
             </Link>);
     }

@@ -66,7 +66,7 @@ const NurseList = () => {
         }
     ];
     const addNewClassification = () => {
-            return (<Link to={'register-symptoms'}>
+            return (<Link to={'/register-nurse'}>
                 <Button>Adicionar profissional {'\u2800'} <FontAwesomeIcon icon={faUserNurse} /></Button>
             </Link>);
     }

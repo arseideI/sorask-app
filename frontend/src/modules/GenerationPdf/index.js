@@ -79,10 +79,17 @@ const GenerationPdf = () =>{
         }
 
       }
-      pdfMake.createPdf(docDefinitions).download();
+      pdfMake.createPdf(docDefinitions).download()
+        
     }
     return (
         <Card title={"Relatório"} style={{margin: 20}}>
+            <span>
+              Aqui você poderar realizar o download do relatório referente aos ultimos 7 dias, contendo: <br/>
+              • Sintomas mais frequêntes <br/>
+              • Quantidade de pacientes<br/>
+              • Complexidade de casos<br/><br/><br/>
+            </span>
             <Button onClick={makePdf}> Baixar Relatório</Button>
         </Card>
     );

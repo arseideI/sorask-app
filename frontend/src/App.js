@@ -25,7 +25,6 @@ export default function App() {
         <SideMenu/>
       </Sider>
       <Layout>
-        
         <Content style={{ backgroundColor: "#f2f2f2" }}>
           <Routes>
             <Route path="dashboard" element={<MainPainel/>}/>
