@@ -6,7 +6,8 @@ from controller.symptom_controller import SymptomController
 @app.route("/symptom", methods=["GET"])
 def get_all_symptoms():
     symptomes = SymptomController.get_symptom_list()
-    return jsonify(symptomes)
+    reve = list(reversed(symptomes))
+    return jsonify(reve)
 
 @app.route("/symptom", methods=["POST"])
 def register_symptom():

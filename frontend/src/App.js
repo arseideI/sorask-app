@@ -7,6 +7,12 @@ import ClassificationList from './modules/ClassificationList';
 import ClassificationRegister from './modules/RegisterClassification';
 import MainPainel from './modules/MainPainel';
 import SideMenu from './components/SideMenu';
+import SymptomsList from './modules/SymptomsList';
+import RegisterSymptom from './modules/RegisterSymptoms';
+import RegisterNurse from './modules/RegisterNurse';
+import NurseList from './modules/NurseList';
+import GenerationPdf from './modules/GenerationPdf';
+
 
 const { Sider, Content, Footer, Header } = Layout;
 
@@ -23,8 +29,13 @@ export default function App() {
         <Content style={{ backgroundColor: "#f2f2f2" }}>
           <Routes>
             <Route path="dashboard" element={<MainPainel/>}/>
-            <Route path="/classifications" element={<ClassificationList/>}/>
+            <Route path="classifications" element={<ClassificationList/>}/>
             <Route path="register-classification" element={<ClassificationRegister/>}/>
+            <Route path="symptoms" element={<SymptomsList/>}/>
+            <Route path="register-symptoms" element={<RegisterSymptom/>}/>
+            <Route path="nurses" element={<NurseList/>}/>
+            <Route path="register-nurse" element={<RegisterNurse/>}/>
+            <Route path="pdf" element={<GenerationPdf/>}/>
           </Routes>
         </Content>
         <Footer style={{textAlign: "center", backgroundColor: "white"}}>

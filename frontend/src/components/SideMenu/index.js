@@ -19,6 +19,26 @@ const SideMenu = () => {
         {
             key: "register-classification",
             label: "Nova Classificação"      
+        },
+        {
+            key: "symptoms",
+            label: "Sintomas"      
+        },
+        {
+            key: "register-symptoms",
+            label: "Novo Sintomas"      
+        },
+        {
+            key: "register-nurse",
+            label: "Novo profissional"      
+        },
+        {
+            key: "nurses",
+            label: "Profissionais"      
+        },
+        {
+            key: "pdf",
+            label: "Relatório"      
         }
         
     ];
