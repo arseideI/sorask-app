@@ -11,15 +11,18 @@ class User:
         data = self.database.get_by_id(query=query)
         return data
     
-    def patients_list(self):
+    def nurse_list(self):
         data = self.database.get_all_data()
         return data
     
-    def register_patient(self, patient: dict):
-        name = patient.get("name")
-        query = f"(NM_PATIENT) VALUES ('{name}')"
+    def register_user(self, user: dict):
+        name = user.get("name")
+        email = user.get("email")
+        password = str(user.get("password"))
+        query = f"(NM_USER, NM_USER_TYPE, TX_MAIL, PSD_USER) VALUES ('{name}', 'Enfermeiro(a)', '{email}', '{password}')"
         try:
             data = self.database.insert(query=query)
+            print("Treyyyyyyyy====================: ", data)
         except Exception as exc:
             logging.exception(f"[PATIENT][register_patient] Erro ao inserir novo paciente: {exc} ")
         return data

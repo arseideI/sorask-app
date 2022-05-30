@@ -16,6 +16,7 @@ def get_all_classifications_form_data():
 @app.route("/classification", methods=["POST"])
 def register_classification():
     body_data = request.get_json()
+    print("testeeee============ ", body_data)
     classification = ClassificationController().register_classification(classification_data=body_data)
     return jsonify(classification)
 

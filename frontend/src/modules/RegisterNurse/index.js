@@ -7,16 +7,16 @@ import { faFlag } from '@fortawesome/free-solid-svg-icons'
 const RegisterNurse = () => {
     const navigate = useNavigate()
     const onFinish = (values) => {
-        fetch('http://localhost:5000/symptom', {
+        fetch('http://192.168.1.17:5000/nurse', {
             method: 'POST',
             headers: {'Content-Type': "application/json"},
             body: JSON.stringify(values)
         }).then(()=>{
             console.log("Request Realizado com sucesso")
             message
-                .loading('Cadastrando Sintoma...', 2.5)
+                .loading('Cadastrando profissional...', 2.5)
                 .then(() => message.success('Cadastro realizado com sucesso!', 2.5))
-                .then(()=> navigate('/symptoms'))
+                .then(()=> navigate('/nurses'))
         })
       };
     return(
@@ -25,9 +25,9 @@ const RegisterNurse = () => {
                 <Row>
                     <Col span={6}>
                     <Form.Item
-                        label="Username"
-                        name="username"
-                        rules={[{ required: true, message: 'Please input your username!' }]}
+                        label="Nome"
+                        name="name"
+                        rules={[{ required: true, message: 'Insira o nome!' }]}
                     >
                         <Input />
                     </Form.Item>
@@ -36,16 +36,16 @@ const RegisterNurse = () => {
                     <Form.Item
                         label="Email"
                         name="email"
-                        rules={[{ required: true, message: 'Please input your email!' }]}
+                        rules={[{ required: true, message: 'Insira o email!' }]}
                     >
                         <Input />
                     </Form.Item>
                     </Col>
                     <Col span={6}>
                     <Form.Item
-                        label="Password"
+                        label="Senha"
                         name="password"
-                        rules={[{ required: true, message: 'Please input your password!' }]}
+                        rules={[{ required: true, message: 'Insira a senha!' }]}
                     >
                         <Input.Password />
                     </Form.Item>   

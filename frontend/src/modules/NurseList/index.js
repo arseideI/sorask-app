@@ -1,20 +1,22 @@
-import {Card, Table, Tag, Button} from 'antd';
+import {Card, Table, Tag, Button, Popconfirm, message} from 'antd';
 import React, { useLayoutEffect } from "react";
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFlag, faSyringe, faUserNurse } from '@fortawesome/free-solid-svg-icons'
+import { faUserNurse, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 
 const { useState, useEffect } = React;
 
 
 const NurseList = () => {
-
+    const navigate = useNavigate()
     let [classification, setClassification] = useState([]);
+    let [deletest, setDeletest] = useState();
     let [steste, setSteste] = useState({
         loading: true
     });
     useEffect(() => {
-        fetch('http://localhost:5000/symptom')
+        fetch('http://192.168.1.17:5000/nurse')
         .then(response => response.json())
         .then(data => getValues(data))
         .then(setSteste({loading: false}))
@@ -25,33 +27,51 @@ const NurseList = () => {
         let classifications_formatted = []
         s.forEach(element => {
             classifications_formatted.push({
-                "id": element.ID_SYMPTOM,
-                "name": element.NM_SYMPTOM,
-                "flag": element.ID_FLAG
+                "id": element.id,
+                "name": element.name,
+                "email": element.email,
+                "type": element.type,
+                "delete": element.id
             })
         });
         setClassification(classifications_formatted)
 
     }
-    const renderFlagStatus = (flagStatus) => {
-        if (flagStatus === 1) {
-            return <Tag color={'blue'}><FontAwesomeIcon icon={faFlag} /></Tag>
-        }
-        if (flagStatus === 2) {
-            return <Tag color={'green'}><FontAwesomeIcon icon={faFlag} /></Tag>
-        }
-        if (flagStatus === 3) {
-            return <Tag color={'yellow'}><FontAwesomeIcon icon={faFlag} /></Tag>
-        }
-        if (flagStatus === 4) {
-            return <Tag color={'orange'}><FontAwesomeIcon icon={faFlag} /></Tag>
-        }
-        if (flagStatus === 5) {
-            return <Tag color={'red'}><FontAwesomeIcon icon={faFlag} /></Tag>
-        }
-        console.log(flagStatus)
+    const deleteNurse = (id) => {
+        const path = 'http://192.168.1.17:5000/nurse/'+id
+        fetch(path, {
+            method: 'DELETE',
+            headers: {'Content-Type': "application/json"},
+        }).then(()=>{
+            console.log("Request Realizado com sucesso")
+            navigate('/nurses')
+        })
+      };
+    const confirm = (e) => {
+        let del = deleteNurse(deletest)
+        console.log("deletando: ", del)
+        message.success('Deletado com sucesso');
+        window.location.reload();
+        
+      };
+      
+      const cancel = (e) => {
+        
+        message.error('Delete cancelado');
+      };
+    const buttonDelete = (deleteId) =>{
+
+        return<Popconfirm
+        title="Tem certeza que deseja deletar?"
+        onConfirm={confirm}
+        onCancel={cancel}
+        okText="Yes"
+        cancelText="No"
+        id={deleteId}
+      >
+        <a href="#" className='botaoDelete'><Button>Deletar {'\u2800'} <FontAwesomeIcon icon={faTrashCan} /></Button></a>
+      </Popconfirm>
     }
-   
     const tableColumn = [
         {
             title: 'Nome',
@@ -59,11 +79,22 @@ const NurseList = () => {
             key: 'name'
         },
         {
-            title: 'Flag',
-            dataIndex: 'flag',
-            key: 'flag',
-            render: renderFlagStatus
-        }
+            title: 'Email',
+            dataIndex: 'email',
+            key: 'email'
+        },
+        {
+            title: 'Cargo',
+            dataIndex: 'type',
+            key: 'type'
+        },
+        {
+            title: 'Deletar',
+            dataIndex: 'delete',
+            key: 'delete',
+            render: buttonDelete
+        },
+
     ];
     const addNewClassification = () => {
             return (<Link to={'/register-nurse'}>
@@ -78,7 +109,10 @@ const NurseList = () => {
                 columns={tableColumn}
                 rowKey="id"
                 onRow={(classItem)=> ({
-                    onClick: () => console.log(classItem.name)
+                    onClick: () => {
+                        console.log(classItem.id)
+                        setDeletest(classItem.id)
+                    }
                 })}
             />
         </Card>

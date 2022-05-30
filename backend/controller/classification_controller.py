@@ -50,3 +50,6 @@ class ClassificationController:
             "patients": formatted_patient
         }
         return dashboard
+    
+    def get_dash(self):
+        return self.classification.get_dash()

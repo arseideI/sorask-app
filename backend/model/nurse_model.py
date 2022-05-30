@@ -16,8 +16,8 @@ class Nurse():
         data = self.database.get_all_data()
         return data
     
-    def register_nurse(self, nurse: dict):
-        user_id = nurse.get("user_id")
+    def register_nurse(self, nurse_id: int):
+        user_id = nurse_id
         user_data = User().get_user(id=user_id)
         data = {"erro": "Usuário não encontrado"}
         if user_data:

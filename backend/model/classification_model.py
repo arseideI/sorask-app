@@ -5,6 +5,7 @@ from model.patient_model import Patient
 from model.symptom_model import Symptom
 from model.classification_symptom_model import ClassificationSymptom
 import logging
+from datetime import datetime
 class Classification():
     def __init__(self, classification_symptom: object):
         self.classification_symptom = classification_symptom
@@ -54,19 +55,30 @@ class Classification():
         return all_classification
     
     def register_classification(self, classification: dict):
-        id_nurse = classification.get("id_nurse")
-        id_patient = classification.get("id_patient")
-        id_flag = classification.get("id_flag")
-        symptoms_id = classification.get("symptoms")
+        # {'user': '2$DrackoNerd$212987432', 'symptoms': ['4$Ansiedade (nervosismo)$1', '2$Dor abdominal inferior$1'], 'flags': '3', 'internal': '2', 'setor': ['3']}
+        patient_id = classification.get("user").split("$")[0]
 
-        query = f"(ID_NURSE, ID_PATIENT, ID_FLAG) VALUES ('{id_nurse}','{id_patient}', '{id_flag}')"
+        symptoms_id_list = []
+        id_nurse = classification.get("id_nurse")
+        id_patient = int(patient_id)
+        id_flag = classification.get("flags")
+        symptoms_id = classification.get("symptoms")
+        for symp in symptoms_id:
+            symptoms_id_list.append(
+                int(symp.split("$")[0])
+            )
+        internal = int(classification.get("internal"))
+        setor = int(classification.get("setor")[0])
+        entry_date = datetime.today()
+
+        query = f"(ID_NURSE, ID_PATIENT, ID_FLAG, INTERNAL, SETOR, DT_PATIENT_ENTRY) VALUES ('{id_nurse}','{id_patient}', '{id_flag}', '{internal}', '{setor}', '{entry_date}')"
         try:
             data = self.database.insert(query=query)
         except Exception as exc:
             logging.exception(f"[SYMPTOM][register_symptom] Erro ao inserir novo sintoma: {exc} ")
         if data.get("id"):
             id_classification = data.get("id")
-            for symptom in symptoms_id:
+            for symptom in symptoms_id_list:
                 if type(symptom) == int:
                     object_query = {
                         "id_classification": id_classification,
@@ -133,5 +145,8 @@ class Classification():
         }
 
         return formatted
+    
+    def get_dash(self):
+        return self.database.get_interval_symptoms()
     
     

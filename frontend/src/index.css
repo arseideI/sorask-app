@@ -94,6 +94,10 @@ li.ant-pagination-item-active a {
   padding: 5px;
 }
 
+.botaoDelete:hover .ant-btn-default{
+  color: rgb(172, 23, 23) !important;
+  border-color:rgb(172, 23, 23) !important ;
+}
 
 /* https://recharts.org/en-US/examples/StackedBarChart */
 

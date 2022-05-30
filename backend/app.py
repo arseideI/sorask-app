@@ -16,6 +16,8 @@ from router import patient_router
 from router import nurse_router
 from router import symptom_router
 from router import classification_router
+from router import report_route
+from router import dashboard_route
 
 @app.route("/", methods=["POST"])
 def teste():

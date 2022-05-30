@@ -7,7 +7,7 @@ import { faFlag } from '@fortawesome/free-solid-svg-icons'
 const RegisterSymptom = () => {
     const navigate = useNavigate()
     const onFinish = (values) => {
-        fetch('http://localhost:5000/symptom', {
+        fetch('http://192.168.1.17:5000/symptom', {
             method: 'POST',
             headers: {'Content-Type': "application/json"},
             body: JSON.stringify(values)

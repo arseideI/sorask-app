@@ -12,7 +12,7 @@ const ClassificationList = () => {
         loading: true
     });
     useEffect(() => {
-        fetch('http://localhost:5000/classification')
+        fetch('http://192.168.1.17:5000/classification')
         .then(response => response.json())
         .then(data => getValues(data))
         .then(setSteste({loading: false}))
@@ -35,16 +35,19 @@ const ClassificationList = () => {
 
     }
     const renderFlagStatus = (flagStatus) => {
-        if (flagStatus === 0) {
+        if (flagStatus === 1) {
             return <Tag color={'blue'}><FontAwesomeIcon icon={faFlag} /></Tag>
         }
-        if (flagStatus === 1) {
+        if (flagStatus === 2) {
             return <Tag color={'green'}><FontAwesomeIcon icon={faFlag} /></Tag>
         }
-        if (flagStatus === 2) {
+        if (flagStatus === 3) {
             return <Tag color={'yellow'}><FontAwesomeIcon icon={faFlag} /></Tag>
         }
-        if (flagStatus === 3) {
+        if (flagStatus === 4) {
+            return <Tag color={'orange'}><FontAwesomeIcon icon={faFlag} /></Tag>
+        }
+        if (flagStatus === 5) {
             return <Tag color={'red'}><FontAwesomeIcon icon={faFlag} /></Tag>
         }
         console.log(flagStatus)

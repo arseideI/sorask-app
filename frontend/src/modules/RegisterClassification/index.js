@@ -1,5 +1,6 @@
-import { Card, Form, Input, Row, Col, Divider, Select, Button, Radio, Checkbox } from 'antd';
+import { Card, Form, Input,InputNumber, Row, Col, Divider, Select, Button, Radio, Checkbox, message} from 'antd';
 import React, { useLayoutEffect } from "react";
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFlag } from '@fortawesome/free-solid-svg-icons'
 
@@ -8,6 +9,7 @@ const { useState, useEffect } = React;
 const { Option } = Select;
 
 const ClassificationRegister = () => {
+    const navigate = useNavigate()
     let [symptoms, setSymptoms] = useState([]);
     let [steste, setSteste] = useState({
         loading: true
@@ -15,7 +17,7 @@ const ClassificationRegister = () => {
     let [patients, setPatients] = useState([])
     let [selectSymptom, setSelectSymptom] = useState();
     useEffect(() => {
-        fetch('http://localhost:5000/classification/form')
+        fetch('http://192.168.1.17:5000/classification/form')
         .then(response => response.json())
         .then(data => getValues(data))
         .then(setSteste({loading: false}))
@@ -54,12 +56,17 @@ const ClassificationRegister = () => {
         }
   
     const onFinish = (values) => {
-        fetch('http://localhost:5000/', {
+        values.id_nurse = 1
+        fetch('http://192.168.1.17:5000/classification', {
             method: 'POST',
             headers: {'Content-Type': "application/json"},
             body: JSON.stringify(values)
         }).then(()=>{
             console.log("Request Realizado com sucesso")
+            message
+                .loading('Cadastrando classificação...', 2.5)
+                .then(() => message.success('Cadastro realizado com sucesso!', 2.5))
+                .then(()=> navigate('/classifications'))
         })
       };
     return (
@@ -112,8 +119,10 @@ const ClassificationRegister = () => {
                             </Col>
                         <Col span={6}>
                             <Form.Item label="Temperatura" name="temperature">
-                                <Input placeholder='Temperatura em ºC' />
+                                <Input placeholder='Temperatura em ºC'/>
                             </Form.Item>
+                            
+                            
                         </Col>
                         <Col span={8}>
                             <Form.Item label="Frequência Respiratória" name="respiratory">
@@ -186,9 +195,10 @@ const ClassificationRegister = () => {
                                 </Checkbox.Group>
                             </Form.Item>
                             </Col>
+                            
                         </Row>
-
                     </Col>
+                    
                 </Row>
                 
                 

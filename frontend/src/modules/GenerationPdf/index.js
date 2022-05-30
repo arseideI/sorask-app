@@ -4,7 +4,26 @@ import pdfMake from 'pdfmake/build/pdfmake'
 import pdfFonts from 'pdfmake/build/vfs_fonts'
 import logo from '../../assets/img/logo.jpg'
 
+const { useState, useEffect } = React;
+
+
 const GenerationPdf = () =>{
+  let [classification, setClassification] = useState([]);
+  let [steste, setSteste] = useState({
+      loading: true
+  });
+  useEffect(() => {
+      fetch('http://192.168.1.17:5000/report')
+      .then(response => response.json())
+      .then(data => getValues(data))
+      .then(setSteste({loading: false}))
+  }, []);
+
+  
+  let getValues = async (s) => {
+      setClassification(s)
+
+  }
     var datetime = new Date()
     const day = datetime.getDate()
     const month = (datetime.getMonth()+1)
@@ -19,9 +38,8 @@ const GenerationPdf = () =>{
     const fullhour = hour +':'+ minute + ':'+ second
 
     const finalDate = fullday + ' - ' + fullhour
-    console.log("Data: ", finalDate)
+    
     const makePdf =()=>{
-      
       pdfMake.vfs = pdfFonts.pdfMake.vfs;
       
       const reportTitle = [
@@ -33,28 +51,7 @@ const GenerationPdf = () =>{
         }
 
       ];
-      const details = [
-        {
-          text: 'Relatório de classificação  ||   '+ finalDate,
-          alignment: 'center',
-          fontSize: 15,
-          bold: true,
-          margin: [15,25,0,20]
-        },
-        {text: 'Sintomas mais frequêntes', fontSize: 14, bold: true, margin:[0, 20, 0, 8]},
-        {
-          table: {
-            headerRows:1,
-            body: [
-              [{text: 'Sintomas', style: 'tableHeader'}, {text: 'Quantidade', style: 'tableHeader'} ],
-              ['Corisa', 25],
-              ['Dor de cabeça', 38],
-              ['Insuficiência respiratória', 4]
-            ]
-          },
-          layout: 'lightHorizontalLines'
-        }
-      ];
+      const details = classification;
       const Rodape = (currentPage, pageCount)=>{
           return [
             {

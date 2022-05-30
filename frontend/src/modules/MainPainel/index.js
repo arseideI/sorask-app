@@ -2,9 +2,29 @@ import { Card, Row, Col, Divider, Table, Tag} from 'antd';
 import React, { Text } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFlag } from '@fortawesome/free-solid-svg-icons';
-import {LineChart, Line, AreaChart, Area, PieChart, Pie, Sector, BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { ComposedChart,LineChart, Line, AreaChart, Area, PieChart, Pie, Sector, BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+
+const { useState, useEffect } = React;
 
 const MainPainel = () => {
+
+  var [classification, setClassification] = useState([]);
+  var [steste, setSteste] = useState({
+      loading: true
+  });
+  useEffect(() => {
+      fetch('http://localhost:5000/report')
+      .then(response => response.json())
+      .then(data => getValues(data))
+      .then(setSteste({loading: false}))
+  }, []);
+
+  
+  let getValues = async (s) => {
+      setClassification(s)
+
+  }
+
     const data1 = [
         {
           name: 'Diarreia',
@@ -113,7 +133,7 @@ const MainPainel = () => {
         }
     ];
     
-    const classification = [
+    const classificationss = [
         {
             "id": 1,
             "flag": 1,
@@ -129,6 +149,7 @@ const MainPainel = () => {
         {
           name: '01/06',
           uv: 4000,
+          sintoma: "Dor de Cabeça",
           pv: 2400,
           amt: 2400,
         },
@@ -243,28 +264,27 @@ const MainPainel = () => {
                     {/* GRID 3 */}
                     < div className="titleBox">Sintomas Frequêntes - 7 dias</div>
                     <>
-                        <ResponsiveContainer width="100%" height="80%" className="blockCard">
-            <LineChart
-            width={500}
-            height={300}
-            data={data4}
-            margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-            }}
-            >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis/>
-            <Tooltip/>
-            <Legend/>
-            <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-            <Line type="monotone" dataKey="uv" stroke="#82ca9d"/>
-            <Line type="monotone" dataKey="amt" stroke="#82ca9d" display={false}/>
-            </LineChart>
-                        </ResponsiveContainer>
+                    <ResponsiveContainer width="100%" height="80%" className="blockCard">
+        <ComposedChart
+          width={500}
+          height={400}
+          data={data4}
+          margin={{
+            top: 20,
+            right: 20,
+            bottom: 20,
+            left: 20,
+          }}
+        >
+          <CartesianGrid stroke="#f5f5f5" />
+          <XAxis dataKey="name" scale="band" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="uv" barSize={20} fill="#413ea0" />
+          <Bar dataKey="sintoma" barSize={0} fill="#413ea0" display={false}/>
+        </ComposedChart>
+      </ResponsiveContainer>
                     </>
                 </Col>
                 <Col span={12} className="BoxCard">
@@ -303,7 +323,7 @@ const MainPainel = () => {
                 <Col span={8}>
                 <Card title={"Classificações realizadas"} style={{margin: 20}}>
                     <Table
-                        dataSource={classification}
+                        dataSource={classificationss}
                         columns={tableColumn}
                         rowKey="id"
                         onRow={(classItem)=> ({

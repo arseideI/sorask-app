@@ -1,5 +1,6 @@
 import {Card, Table, Tag, Button} from 'antd';
 import React, { useLayoutEffect } from "react";
+
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFlag, faSyringe } from '@fortawesome/free-solid-svg-icons'
@@ -14,7 +15,7 @@ const SymptomsList = () => {
         loading: true
     });
     useEffect(() => {
-        fetch('http://localhost:5000/symptom')
+        fetch('http://192.168.1.17:5000/symptom')
         .then(response => response.json())
         .then(data => getValues(data))
         .then(setSteste({loading: false}))
