@@ -88,15 +88,15 @@ class DataService():
         self.connect.close()
         return {"status": "Atualizado com sucesso", "id": self.connect.lastrowid}
     
-    def get_interval_symptoms(self):
-        query = """
+    def get_interval_symptoms(self, days: int):
+        query = f"""
 
-        SELECT TB1.ID_SYMPTOM, TB2.NM_SYMPTOM, COUNT(*) FROM T_CLASSIFICATION_SYMPTOM TB1
+        SELECT TB1.ID_SYMPTOM, TB2.NM_SYMPTOM, COUNT(*) AS QNT FROM T_CLASSIFICATION_SYMPTOM TB1
         INNER JOIN T_SYMPTOM TB2 ON TB1.ID_SYMPTOM = TB2.ID_SYMPTOM
         WHERE ID_PATIENT_CLASSIFICATION IN 
-        (SELECT ID_PATIENT_CLASSIFICATION FROM T_PATIENT_CLASSIFICATION WHERE DT_PATIENT_ENTRY > NOW() - interval 7 day)
+        (SELECT ID_PATIENT_CLASSIFICATION FROM T_PATIENT_CLASSIFICATION WHERE DT_PATIENT_ENTRY > NOW() - interval {days} day)
         GROUP BY ID_SYMPTOM
-        ORDER BY COUNT(*) DESC
+        ORDER BY QNT DESC
         LIMIT 10;
 
         """

@@ -91,7 +91,11 @@ class Classification():
         return data
     
     def delete(self, id: int):
-        data = self.database.delete(id=id)
+        query = f"""WHERE {id}"""
+
+        query_delete = f"""DELETE FROM T_CLASSIFICATION_SYMPTOM WHERE ID_PATIENT_CLASSIFICATION={id}"""
+        self.database.custom_query(query=query_delete)
+        data = self.database.delete(id_query=query)
         return data
     
     def update(self, id: int, data:dict):
@@ -146,7 +150,7 @@ class Classification():
 
         return formatted
     
-    def get_dash(self):
-        return self.database.get_interval_symptoms()
+    def get_dash(self, days: int):
+        return self.database.get_interval_symptoms(days=days)
     
-    
+       

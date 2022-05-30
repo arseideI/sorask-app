@@ -52,4 +52,8 @@ class ClassificationController:
         return dashboard
     
     def get_dash(self):
-        return self.classification.get_dash()
+
+        return {
+            "graph3": self.classification.get_dash(days=7),
+            "graph1": self.classification.get_dash(days=1)
+        }

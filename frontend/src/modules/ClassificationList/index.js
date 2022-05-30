@@ -93,7 +93,7 @@ const ClassificationList = () => {
                 columns={tableColumn}
                 rowKey="id"
                 onRow={(classItem)=> ({
-                    onClick: () => console.log(classItem.name)
+                    onClick: () => console.log(classItem.id)
                 })}
             />
         </Card>

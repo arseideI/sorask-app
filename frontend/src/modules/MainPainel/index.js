@@ -9,11 +9,13 @@ const { useState, useEffect } = React;
 const MainPainel = () => {
 
   var [classification, setClassification] = useState([]);
+  var [Graph3, setGraph3] = useState([]);
+  var [Graph1, setGraph1] = useState([]);
   var [steste, setSteste] = useState({
       loading: true
   });
   useEffect(() => {
-      fetch('http://localhost:5000/report')
+      fetch('http://192.168.1.17:5000/dashboard')
       .then(response => response.json())
       .then(data => getValues(data))
       .then(setSteste({loading: false}))
@@ -21,22 +23,30 @@ const MainPainel = () => {
 
   
   let getValues = async (s) => {
-      setClassification(s)
-
+    let classifications_formatted = []
+    let dia = 1
+        s.graph3.forEach(element => {
+            classifications_formatted.push({
+                "casos": element.QNT,
+                "name": dia,
+                "sintoma": element.NM_SYMPTOM
+            })
+          dia += 1
+        });
+        console.log(classifications_formatted)
+      setGraph3(classifications_formatted)
+      let g1 =[]
+      s.graph1.forEach(element => {
+        g1.push({
+            "casos": element.QNT,
+            "sintoma": element.NM_SYMPTOM
+        })
+      dia += 1
+    });
+    setGraph1(g1)
   }
 
-    const data1 = [
-        {
-          name: 'Diarreia',
-          sintoma: 2400
-        },
-        {
-          name: 'Dor de Cabeça',
-          sintoma: 3000
-          
-        }
-        
-      ];
+    const data1 = Graph1
     const data2 = [
         { name: 'Azul', value: 400 },
         { name: 'Verde', value: 300 },
@@ -145,51 +155,7 @@ const MainPainel = () => {
             "name": "Alexandre Rangel"
         },
     ] 
-      const data4 = [
-        {
-          name: '01/06',
-          uv: 4000,
-          sintoma: "Dor de Cabeça",
-          pv: 2400,
-          amt: 2400,
-        },
-        {
-          name: '02/06',
-          uv: 3000,
-          pv: 1398,
-          amt: 2210,
-        },
-        {
-          name: '03/06',
-          uv: 2000,
-          pv: 9800,
-          amt: 2290,
-        },
-        {
-          name: '04/06',
-          uv: 2780,
-          pv: 3908,
-          amt: "teste",
-        },
-        {
-          name: '05/06',
-          uv: 1890,
-          pv: 4800,
-          amt: 2181,
-        },
-        {
-          name: '06/06',
-          uv: 2390,
-          pv: 3800,
-          amt: 2500,
-        },
-        {
-          name: '07/06',
-          uv: 3490,
-          pv: 4300,
-          amt: 2100,
-        },
-    ];
+      const data4 = Graph3
     const RADIAN = Math.PI / 180;
     const COLORS = ['#00BEE0', '#3CE157', '#EFE54A', '#E18E3C', '#df1e1e'];
     const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
@@ -224,11 +190,13 @@ const MainPainel = () => {
                     }}
                     >
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
+                    <XAxis dataKey="qnt" />
                     <YAxis />
                     <Tooltip />
                     
-                    <Bar dataKey="sintoma" stackId="a" fill="#8884d8" />
+                    <Bar dataKey="casos" stackId="a" fill="#e09753" />
+                    <Bar dataKey="sintoma" stackId="a" fill="#413ea0" display={'none'}/>
+                    
                     </BarChart>
                 </ResponsiveContainer>
                     </>
@@ -281,7 +249,8 @@ const MainPainel = () => {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="uv" barSize={20} fill="#413ea0" />
+          <Bar dataKey="casos" barSize={20} fill="#53c18e" />
+        
           <Bar dataKey="sintoma" barSize={0} fill="#413ea0" display={false}/>
         </ComposedChart>
       </ResponsiveContainer>
