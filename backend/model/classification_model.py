@@ -150,7 +150,12 @@ class Classification():
 
         return formatted
     
-    def get_dash(self, days: int):
+    def get_dash_symptoms(self, days: int):
+        
         return self.database.get_interval_symptoms(days=days)
+    
+    def get_dash_flags(self, days: int):
+        
+        return self.database.get_interval_flags(days=days)
     
        

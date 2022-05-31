@@ -103,6 +103,20 @@ class DataService():
         result = self.custom_query(query=query)
 
         return result
+    
+    def get_interval_flags(self, days: int):
+        query = f"""
+
+        SELECT ID_FLAG, COUNT(*) FROM db.T_PATIENT_CLASSIFICATION
+        WHERE DT_PATIENT_ENTRY > NOW() - interval {days} day
+        GROUP BY ID_FLAG
+        LIMIT 10;
+
+
+        """
+        result = self.custom_query(query=query)
+
+        return result
 
     def get_table_columns(self):
         """

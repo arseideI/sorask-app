@@ -92,6 +92,7 @@ const ClassificationList = () => {
                 dataSource={steste.loading ? [] : classification}
                 columns={tableColumn}
                 rowKey="id"
+                pagination={{ pageSize: 12 }}
                 onRow={(classItem)=> ({
                     onClick: () => console.log(classItem.id)
                 })}

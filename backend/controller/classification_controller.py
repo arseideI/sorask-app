@@ -9,7 +9,7 @@ class ClassificationController:
         
     def get_classification_list(self):
         classifications = self.classification.get_classification_list()
-        return classifications
+        return list(reversed(classifications))
     
     def get_classification(self, id: int):
         classification = self.classification.get_classification(id=id)
@@ -52,8 +52,31 @@ class ClassificationController:
         return dashboard
     
     def get_dash(self):
+        COLORS = {
+            1: {"name": "Azul", "color":"#00BEE0"},
+            2: {"name": "Verde", "color":"#53C18E"},
+            3: {"name": "Amarelo", "color":"#D4B106"},
+            4: {"name": "Laranja", "color":"#E09753"},
+            5: {"name": "Vermelho", "color":"#E26E6E"},
+        }
+        all_flags_pizza = []
+
+        all_cartesian = []
+        for flag in self.classification.get_dash_flags(days=1):
+            flag["COLOR_NM"] = COLORS.get(flag["ID_FLAG"])
+            flag["VALUE"] = flag["COUNT(*)"]
+            all_flags_pizza.append(flag)
+
+        
+        for flag in self.classification.get_dash_flags(days=7):
+            flag["COLOR_NM"] = COLORS.get(flag["ID_FLAG"])
+            flag["VALUE"] = flag["COUNT(*)"]
+            all_cartesian.append(flag)
 
         return {
-            "graph3": self.classification.get_dash(days=7),
-            "graph1": self.classification.get_dash(days=1)
+            "graph3": self.classification.get_dash_symptoms(days=7),
+            "graph1": self.classification.get_dash_symptoms(days=1),
+            "graph2": all_flags_pizza,
+            "graph4": all_cartesian,
+            "classification": self.get_classification_list()
         }

@@ -5,13 +5,12 @@ class Dashboard:
 
     def get_dashboard():
         all_classifications = []
-        classifications = ClassificationController.get_classification_list()
-        for classification in classifications:
-            all_classifications.append({
-            "id": classification.get("id"),
-            "flag": classification.get("flag"),
-            "name": classification.get("patient",{}).get("name")
-        })
+        dash = ClassificationController.get_dash()
+        symptoms_today = dash["graph1"]
+        symptoms_week = dash["graph3"]
+
+        flags_today = dash["graph2"]
+        flags_week = dash["graph4"]
 
         formatted = {
             "classification": {
