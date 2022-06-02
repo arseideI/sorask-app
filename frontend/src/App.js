@@ -33,7 +33,9 @@ export default function App() {
             <Route path="symptoms" element={<SymptomsList/>}/>
             <Route path="register-symptoms" element={<RegisterSymptom/>}/>
             <Route path="nurses" element={<NurseList/>}/>
-            <Route path="register-nurse" element={<RegisterNurse/>}/>
+            <Route path="register-nurse" element={<RegisterNurse/>}>
+              <Route path=":nurseId" element={<RegisterNurse/>}/>
+            </Route>
             <Route path="pdf" element={<GenerationPdf/>}/>
           </Routes>
         </Content>

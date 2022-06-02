@@ -1,6 +1,6 @@
 import {Card, Table, Tag, Button, Popconfirm, message} from 'antd';
 import React, { useLayoutEffect } from "react";
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserNurse, faTrashCan } from '@fortawesome/free-solid-svg-icons'
@@ -9,6 +9,7 @@ const { useState, useEffect } = React;
 
 
 const NurseList = () => {
+
     const navigate = useNavigate()
     let [classification, setClassification] = useState([]);
     let [deletest, setDeletest] = useState();
@@ -59,6 +60,13 @@ const NurseList = () => {
         
         message.error('Delete cancelado');
       };
+    const goTo = (id) => {
+        const value = classification.find(element => element.id == id)
+        navigate(`/register-nurse/${id}`,{state: value})
+    }
+    const edit = (id) => {
+        return <Button  onClick={ () => goTo(id)}>Editar</Button>
+    }
     const buttonDelete = (deleteId) =>{
 
         return<Popconfirm
@@ -93,6 +101,12 @@ const NurseList = () => {
             dataIndex: 'delete',
             key: 'delete',
             render: buttonDelete
+        },
+        {
+            title: 'Editar',
+            dataIndex: 'id',
+            key: 'id',
+            render: edit
         },
 
     ];

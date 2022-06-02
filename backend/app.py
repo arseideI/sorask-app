@@ -21,9 +21,7 @@ from router import dashboard_route
 
 @app.route("/", methods=["POST"])
 def teste():
-    data = request.json
-    print("alll value =============================== ", data)
-    
+    data = request.json    
     return jsonify({"data": data})
 
 if __name__ == "__main__":

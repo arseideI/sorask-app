@@ -80,6 +80,7 @@ class DataService():
 
         try:
             query_str = f"""UPDATE {self.table} {query}"""
+            print("query======user=====: ",query_str)
             self.connect.execute(query_str)
             self.mysql.connection.commit()
         except Exception as exc:

@@ -17,7 +17,9 @@ class Nurse():
         return data
     
     def register_nurse(self, nurse_id: int):
-        user_id = nurse_id
+       
+        nurse_data = self.get_nurse(id=nurse_id)
+        user_id = nurse_data.get("ID_USER")
         user_data = User().get_user(id=user_id)
         data = {"erro": "Usuário não encontrado"}
         if user_data:
@@ -35,15 +37,13 @@ class Nurse():
         return data
     
     def update(self, id: int, data:dict):
-        user_id = data.get("user_id")
-        user_data = User().get_user(id=user_id)
-        changed = {"erro": "Usuário não encontrado"}
-        if user_data:
-            values = f"ID_USER={user_id}"
-            query = f"SET {values} WHERE ID_NURSE={id}"
 
-            changed = self.database.update(query=query)
-        return changed
+        nurse_data = self.get_nurse(id=id)
+        user =  User()
+        user_id = nurse_data.get("ID_USER")
+        
+        user_update = user.update(id=user_id, data=data)
+        return user_update
     
     
     

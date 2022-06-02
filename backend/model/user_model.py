@@ -22,7 +22,7 @@ class User:
         query = f"(NM_USER, NM_USER_TYPE, TX_MAIL, PSD_USER) VALUES ('{name}', 'Enfermeiro(a)', '{email}', '{password}')"
         try:
             data = self.database.insert(query=query)
-            print("Treyyyyyyyy====================: ", data)
+        
         except Exception as exc:
             logging.exception(f"[PATIENT][register_patient] Erro ao inserir novo paciente: {exc} ")
         return data
@@ -33,11 +33,14 @@ class User:
         return data
     
     def update(self, id: int, data:dict):
-        if data.get("name", None):
-            if type(data["name"]) == str:
-                data_set = f"NM_PATIENT='{data.get('name')}'"
+        if data:
+            name = data.get("name")
+            email = data.get("email")
+            password = data.get("password")
 
-        query = f"SET {data_set} WHERE ID_PATIENT={id}"
+            data_set = f"NM_USER='{name}', TX_MAIL='{email}', PSD_USER='{password}'"
 
+        query = f"SET {data_set} WHERE ID_USER={id}"
+        
         changed = self.database.update(query=query)
         return changed
