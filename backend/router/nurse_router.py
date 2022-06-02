@@ -29,6 +29,6 @@ def delete_nurse(id: int):
 @app.route("/nurse/<id>", methods=["PUT"])
 def update_nurse(id: int):
     body_data = request.get_json()
-    convert_id = int(id)
+    
     nurse = NurseController.update_nurse(id=id, data=body_data)
     return jsonify(nurse)
