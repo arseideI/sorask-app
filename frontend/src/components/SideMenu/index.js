@@ -9,7 +9,7 @@ const SideMenu = () => {
     
     const menuItems = [
         {
-            key: "dashboard",
+            key: "",
             label: "Painel"      
         },
         {
@@ -32,7 +32,7 @@ const SideMenu = () => {
     ];
 
     const onMenuItemClicked = (menuItem) => {
-        navigate(menuItem.key)
+        navigate("/"+menuItem.key)
     }
 
     return (
