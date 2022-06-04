@@ -6,7 +6,6 @@ from controller.classification_controller import ClassificationController
 @app.route("/classification", methods=["GET"])
 def get_all_classifications():
     date_filter = request.headers.get("out_date")
-    print("Dateeee:", date_filter)
     classificationes = ClassificationController().get_classification_list(date_filter=date_filter)
     return jsonify(classificationes)
 
@@ -18,7 +17,6 @@ def get_all_classifications_form_data():
 @app.route("/classification", methods=["POST"])
 def register_classification():
     body_data = request.get_json()
-    print("testeeee============ ", body_data)
     classification = ClassificationController().register_classification(classification_data=body_data)
     return jsonify(classification)
 

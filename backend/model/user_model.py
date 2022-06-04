@@ -10,6 +10,11 @@ class User:
         query = f"WHERE ID_USER={id}"
         data = self.database.get_by_id(query=query)
         return data
+
+    def get_user_by_email(self, email: str):
+        query = f"WHERE TX_MAIL='{email}'"
+        data = self.database.get_by_id(query=query)
+        return data
     
     def nurse_list(self):
         data = self.database.get_all_data()

@@ -132,7 +132,6 @@ class Classification():
         query = f"""(ID_NURSE, ID_PATIENT, ID_FLAG, INTERNAL, SETOR, DT_PATIENT_ENTRY, HEART, ARTERIAL, TEMPERATURE, RESPIRATORY, OXYGEN, OBSERVATION) VALUES ('{id_nurse}','{id_patient}', '{id_flag}', '{internal}', '{setor}', '{entry_date}', '{heart}', '{arterial}', '{temperature}', '{respiratory}', '{oxygen}', '{observation}')"""
         try:
             data = self.database.insert(query=query)
-            print("Erro============================: ", data)
         except Exception as exc:
             logging.exception(f"[SYMPTOM][register_symptom] Erro ao inserir novo sintoma: {exc} ")
         if data.get("id"):
@@ -185,7 +184,6 @@ class Classification():
             query = f"""SET ID_NURSE='{id_nurse}', ID_PATIENT='{patient_id}', ID_FLAG='{id_flag}', INTERNAL='{internal}', DT_PATIENT_EXIT='{exit_dt}', SETOR='{setor}', HEART='{heart}', ARTERIAL='{arterial}', TEMPERATURE='{temperature}', RESPIRATORY='{respiratory}', OXYGEN='{oxygen}', OBSERVATION='{observation}' WHERE ID_PATIENT_CLASSIFICATION={id}"""
 
         changed = self.database.update(query=query)
-        print("UPDATE====================: ", changed)
         return changed
     
     def build_classification(self, classification: dict):
