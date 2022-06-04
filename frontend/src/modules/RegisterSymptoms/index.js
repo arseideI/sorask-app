@@ -1,13 +1,46 @@
 import { Card, Form, Input, Row, Col, Divider, Select, Button, Radio, Checkbox, message } from 'antd';
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import React, { useLayoutEffect } from "react";
+import { Routes, Route, useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useState} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFlag } from '@fortawesome/free-solid-svg-icons'
 
 const RegisterSymptom = () => {
     const navigate = useNavigate()
+    let [symptom, setSymptom] = useState({});
+    let params = useParams();
+    let requestId = parseInt(params.symptomId)
+    let [steste, setSteste] = useState({
+        loading: true
+    });
+    let getValues = async (s) => {
+        setSymptom(s)
+    }
+    useEffect(() => {
+        if(requestId){
+            fetch(`http://192.168.1.17:5000/symptom/${requestId}`, {
+            method: 'GET',
+            headers: {'Content-Type': "application/json", "Access-Control-Allow-Origin": "*"}
+        }).then(response => response.json())
+        .then(data => getValues(data))
+        .then(setSteste({loading: false}))
+        }
+        
+    }, []);
     const onFinish = (values) => {
-        fetch('http://192.168.1.17:5000/symptom', {
+        if(requestId){
+            fetch(`http://192.168.1.17:5000/symptom/${requestId}`, {
+            method: 'PUT',
+            headers: {'Content-Type': "application/json"},
+            body: JSON.stringify(values)
+        }).then(()=>{
+            console.log("Request Realizado com sucesso")
+            message
+                .loading('Atualizando Sintoma...', 2.5)
+                .then(() => message.success('Atualização realizada com sucesso!', 2.5))
+                .then(()=> navigate('/symptoms'))
+        })
+        }else{
+            fetch('http://192.168.1.17:5000/symptom', {
             method: 'POST',
             headers: {'Content-Type': "application/json"},
             body: JSON.stringify(values)
@@ -18,10 +51,20 @@ const RegisterSymptom = () => {
                 .then(() => message.success('Cadastro realizado com sucesso!', 2.5))
                 .then(()=> navigate('/symptoms'))
         })
+        }
       };
     return(
         <Card title={"Cadastro de sintomas"} style={{margin: 20}}>
-             <Form layout='vertical' onFinish={onFinish}>
+             <Form layout='vertical' onFinish={onFinish} fields={[
+                 {
+                     name: ['name'],
+                     value: symptom ? symptom.NM_SYMPTOM : null
+                 },
+                 {
+                    name: ['flag'],
+                    value: symptom ? String(symptom.ID_FLAG) : null
+                },
+             ]}>
                 <Row>
                     <Col span={12}>
                         <Form.Item label="Sintoma" name="name">

@@ -13,7 +13,9 @@ const ClassificationList = () => {
         loading: true
     });
     useEffect(() => {
-        fetch('http://192.168.1.17:5000/classification')
+        fetch('http://192.168.1.17:5000/classification',{
+            method: 'GET',
+            headers: {'Content-Type': "application/json", 'out_date': 'true'}})
         .then(response => response.json())
         .then(data => getValues(data))
         .then(setSteste({loading: false}))

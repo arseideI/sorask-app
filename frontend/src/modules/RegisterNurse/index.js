@@ -19,12 +19,14 @@ const RegisterNurse = () => {
         setNurse(s)
     }
     useEffect(() => {
-        fetch(`http://192.168.1.17:5000/nurse/${requestId}`, {
+        if(requestId){
+            fetch(`http://192.168.1.17:5000/nurse/${requestId}`, {
             method: 'GET',
             headers: {'Content-Type': "application/json", "Access-Control-Allow-Origin": "*"}
         }).then(response => response.json())
         .then(data => getValues(data))
         .then(setSteste({loading: false}))
+        }
     }, []);
     
     const onFinish = (values) => {

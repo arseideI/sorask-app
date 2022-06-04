@@ -7,9 +7,17 @@ class ClassificationController:
     def __init__(self):
         self.classification = Classification(classification_symptom=ClassificationSymptom())
         
-    def get_classification_list(self):
+    def get_classification_list(self, date_filter=None):
         classifications = self.classification.get_classification_list()
-        return list(reversed(classifications))
+        all_classifications = []
+        if date_filter:
+            for classification in classifications:
+                if not classification.get("date_out"):
+                    all_classifications.append(classification)
+        else:
+            all_classifications=classifications
+
+        return list(reversed(all_classifications))
     
     def get_classification(self, id: int):
         classification = self.classification.get_classification(id=id)

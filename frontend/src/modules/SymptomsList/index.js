@@ -1,7 +1,7 @@
 import {Card, Table, Tag, Button} from 'antd';
 import React, { useLayoutEffect } from "react";
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFlag, faSyringe } from '@fortawesome/free-solid-svg-icons'
 
@@ -9,7 +9,7 @@ const { useState, useEffect } = React;
 
 
 const SymptomsList = () => {
-
+    const navigate = useNavigate()
     let [classification, setClassification] = useState([]);
     let [steste, setSteste] = useState({
         loading: true
@@ -33,6 +33,13 @@ const SymptomsList = () => {
         });
         setClassification(classifications_formatted)
 
+    }
+    const goTo = (id) => {
+        const value = classification.find(element => element.id == id)
+        navigate(`/register-symptoms/${id}`,{state: value})
+    }
+    const edit = (id) => {
+        return <Button  onClick={ () => goTo(id)}>Editar</Button>
     }
     const renderFlagStatus = (flagStatus) => {
         if (flagStatus === 1) {
@@ -64,6 +71,12 @@ const SymptomsList = () => {
             dataIndex: 'flag',
             key: 'flag',
             render: renderFlagStatus
+        },
+        {
+            title: 'Editar',
+            dataIndex: 'id',
+            key: 'id',
+            render: edit
         }
     ];
     const addNewClassification = () => {
