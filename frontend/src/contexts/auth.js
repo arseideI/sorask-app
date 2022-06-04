@@ -35,6 +35,8 @@ export const AuthProvider = ({children}) => {
             localStorage.setItem("user",JSON.stringify(loggedUser))
             setUser(loggedUser)
             navigate("/")
+        }else{
+            return "Dados incorretos"
         }
         
     }

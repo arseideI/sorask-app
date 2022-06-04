@@ -9,6 +9,7 @@ const { useState, useEffect } = React;
 const { Option } = Select;
 
 const ClassificationRegister = () => {
+    console.log("Enfermeira: ", localStorage.getItem('user'))
     let params = useParams();
     let requestId = parseInt(params.classificationId)
     const navigate = useNavigate()
@@ -83,8 +84,10 @@ const ClassificationRegister = () => {
     
   
     const onFinish = (values) => {
+        const user_data = JSON.parse(localStorage.getItem('user'))
+
+        values.id_nurse = user_data.id
         if(requestId){
-            values.id_nurse = classification.nurse.id
         fetch(`http://192.168.1.17:5000/classification/${requestId}`, {
             method: 'PUT',
             headers: {'Content-Type': "application/json"},
@@ -97,7 +100,6 @@ const ClassificationRegister = () => {
                 .then(()=> navigate('/classifications'))
         })
         }else{
-            values.id_nurse = 1
             fetch('http://192.168.1.17:5000/classification', {
                 method: 'POST',
                 headers: {'Content-Type': "application/json"},

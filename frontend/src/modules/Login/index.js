@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext} from "react";
-import { Card, Form, Input, Row, Col, Divider, Select, Button, Radio, Checkbox, message, Image } from 'antd';
+import {Alert, Card, Form, Input, Row, Col, Divider, Select, Button, Radio, Checkbox, message, Image } from 'antd';
 import logo from '../../assets/img/logo.jpg'
 
 import { AuthContext } from "../../contexts/auth";
@@ -8,9 +8,12 @@ const Login = () =>{
     const {authenticated, login} = useContext(AuthContext)
     const [access, setAccess] = useState(null)
     const [submit, setSubmit] = useState(null)
+
     
-    const onFinish = (u) => {
-        login(u.email, u.password)
+    const onFinish = async (u) => {
+        setTimeout(()=> setAccess("Dados incorretos"), 2000)
+        const response  = await login(u.email, u.password)
+        
       };
     
       const onFinishFailed = (errorInfo) => {
@@ -23,7 +26,6 @@ const Login = () =>{
             <Col span={12}>
                 <Row>
                     <Col span={12}><Image  src={logo} preview={false} ali /></Col>
-                    <>{String(authenticated)}</>
                 </Row>
                 <Row>
                     <Col span={12}>
@@ -47,14 +49,15 @@ const Login = () =>{
                         >
                             <Input.Password  placeholder="Insira sua senha"/>
                         </Form.Item>
-
+                       
                         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                            
                             <Button type="primary" htmlType="submit">
                             Logar
                             </Button>
                         </Form.Item>
                         </Form>
-                    
+                        {access? <Alert message="Dados incorretos!" type="error" />: <></>}
                     </Col>
                 </Row>
             </Col>

@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
-import { Layout, Image, Button } from 'antd';
+import { Layout, Image, Button, Col, Row } from 'antd';
 import logo from '../../assets/img/logo.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
@@ -31,9 +31,19 @@ const DefaultDash = ({children}) =>{
         <SideMenu/>
       </Sider>
       <Layout>
-        <Header>
-            <Button onClick={handleLogout}><FontAwesomeIcon icon={faRightFromBracket} /></Button>
-            <>{user.name}</>
+        <Header style={{backgroundColor:"#FFFFFF" }}>
+            <Row>
+              <Col span={18}>
+              
+              </Col>
+              <Col span={2}>
+              <Button onClick={handleLogout}><FontAwesomeIcon icon={faRightFromBracket} />{'\u2800'} Sair</Button>
+            
+              </Col>
+              <Col className='userName'>
+                <>Olá, <span>{user.name}</span></>
+              </Col>
+            </Row>
         </Header>
         <Content style={{ backgroundColor: "#f2f2f2" }}>
             {children}

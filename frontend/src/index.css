@@ -106,7 +106,12 @@ li.ant-pagination-item-active a {
 .LoginRow #basic{
   margin: 0 auto !important;
 }
-
+.userName {
+  font-size: 12pt;
+}
+.userName span{
+  color: #1b7a58;
+}
 /* https://recharts.org/en-US/examples/StackedBarChart */
 
 /* https://i.ibb.co/LzSmmkJ/logoFull.png */
