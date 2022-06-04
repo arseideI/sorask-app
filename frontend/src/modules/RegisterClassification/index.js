@@ -1,6 +1,6 @@
 import { Card, Form, Input,InputNumber, Row, Col, Divider, Select, Button, Radio, Checkbox, message} from 'antd';
 import React, { useLayoutEffect } from "react";
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFlag } from '@fortawesome/free-solid-svg-icons'
 
@@ -9,13 +9,34 @@ const { useState, useEffect } = React;
 const { Option } = Select;
 
 const ClassificationRegister = () => {
+    let params = useParams();
+    let requestId = parseInt(params.classificationId)
     const navigate = useNavigate()
     let [symptoms, setSymptoms] = useState([]);
+    let [flag, setFlag] = useState(null);
     let [steste, setSteste] = useState({
         loading: true
     });
+    let [classification, setClassification] = useState({})
     let [patients, setPatients] = useState([])
     let [selectSymptom, setSelectSymptom] = useState();
+    useEffect(() => {
+        if (requestId){
+
+        fetch(`http://192.168.1.17:5000/classification/${requestId}`, {
+            method: 'GET',
+            headers: {'Content-Type': "application/json", "Access-Control-Allow-Origin": "*"}
+        }).then(response => response.json())
+        .then(data => getClassification(data))
+        .then(setSteste({loading: false}))
+        }
+    }, []);
+
+    const getClassification = (s) =>{
+        s.name = ""+s.patient.id+"$"+s.patient.name+"$"+s.patient.cns+""
+        setFlag(s.flag)
+        setClassification(s)
+    }
     useEffect(() => {
         fetch('http://192.168.1.17:5000/classification/form')
         .then(response => response.json())
@@ -39,39 +60,105 @@ const ClassificationRegister = () => {
             symptom_list.push(<Option key={element.id} value={values}>{element.name}</Option>)
         });
         setSymptoms(symptom_list)
-        console.log(patient_list)
 
     }
     
     function handleChange(value) {
-        let indicator = 0
-        value.forEach(flag => {
-                let text = flag.split("$")
+        var indicator = 0
+        if (value.length == 0){
+            setFlag("0")
+        }
+        value.forEach(flag_hash => {
+                let text = flag_hash.split("$")
                 let flagValue = parseInt(text[2])
+                
                 if (flagValue > indicator){
-                indicator = flagValue
-                console.log("flag atual: ", indicator)
+                    indicator = flagValue
                 }
+                
+                setFlag(String(indicator))
+                
             });
         }
+    
   
     const onFinish = (values) => {
-        values.id_nurse = 1
-        fetch('http://192.168.1.17:5000/classification', {
-            method: 'POST',
+        if(requestId){
+            values.id_nurse = classification.nurse.id
+        fetch(`http://192.168.1.17:5000/classification/${requestId}`, {
+            method: 'PUT',
             headers: {'Content-Type': "application/json"},
             body: JSON.stringify(values)
         }).then(()=>{
             console.log("Request Realizado com sucesso")
             message
-                .loading('Cadastrando classificação...', 2.5)
-                .then(() => message.success('Cadastro realizado com sucesso!', 2.5))
+                .loading('Atualizando classificação...', 2.5)
+                .then(() => message.success('Atualização realizada com sucesso!', 2.5))
                 .then(()=> navigate('/classifications'))
         })
+        }else{
+            values.id_nurse = 1
+            fetch('http://192.168.1.17:5000/classification', {
+                method: 'POST',
+                headers: {'Content-Type': "application/json"},
+                body: JSON.stringify(values)
+            }).then(()=>{
+                console.log("Request Realizado com sucesso")
+                message
+                    .loading('Cadastrando classificação...', 2.5)
+                    .then(() => message.success('Cadastro realizado com sucesso!', 2.5))
+                    .then(()=> navigate('/classifications'))
+            })
+        }
       };
     return (
         <Card title={"Classificação de paciente"} style={{ margin: 20 }}>
-            <Form layout='vertical' onFinish={onFinish}>
+            <Form layout='vertical' onFinish={onFinish} fields={[
+                 {
+                    name:["flags"], 
+                    value: flag ? String(flag) : null
+                 },
+                 {
+                    name:["symptoms"], 
+                    value: classification ? classification.symptoms : null
+                 },
+                 {
+                    name:["internal"], 
+                    value: classification ? String(classification.internal) : null
+                 },
+                 {
+                    name:["oxygen"], 
+                    value: classification ? classification.oxygen : null
+                 }, 
+                 {
+                    name:["heart"], 
+                    value: classification ? classification.heart : null
+                 },
+                 {
+                    name:["respiratory"], 
+                    value: classification ? classification.respiratory : null
+                 }, 
+                 {
+                    name:["temperature"], 
+                    value: classification ? classification.temperature : null
+                 }, 
+                 {
+                    name:["arterial"], 
+                    value: classification ? classification.arterial : null
+                 },
+                 {
+                    name:["setor"], 
+                    value: classification ? [String(classification.setor)] : null
+                 },
+                 {
+                    name:["user"], 
+                    value: classification ? classification.name : null
+                 },
+                 {
+                    name:["observation"], 
+                    value: classification ? classification.observation : null
+                 },
+                 ]}>
                 <Row>
                     <Col span={12}>
                         <Form.Item label="Número CNS ou Nome" required name="user" >

@@ -29,7 +29,9 @@ export default function App() {
           <Routes>
             <Route path="dashboard" element={<MainPainel/>}/>
             <Route path="classifications" element={<ClassificationList/>}/>
-            <Route path="register-classification" element={<ClassificationRegister/>}/>
+            <Route path="register-classification" element={<ClassificationRegister/>}>
+              <Route path=":classificationId" element={<ClassificationRegister/>}/>
+            </Route>
             <Route path="symptoms" element={<SymptomsList/>}/>
             <Route path="register-symptoms" element={<RegisterSymptom/>}/>
             <Route path="nurses" element={<NurseList/>}/>

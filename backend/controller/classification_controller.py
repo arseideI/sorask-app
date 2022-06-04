@@ -32,7 +32,7 @@ class ClassificationController:
         formatted_patient = []
         formatted_symptoms = []
         for patient in patients:
-            new_id = f"{patient['ID_PATIENT']}${patient['NM_PATIENT']}$212987432"
+            new_id = f"{patient['ID_PATIENT']}${patient['NM_PATIENT']}${patient['CNS']}"
             formatted_patient.append({
                 'name': patient['NM_PATIENT'],
                 'id': new_id

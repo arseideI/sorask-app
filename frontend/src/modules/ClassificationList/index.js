@@ -1,12 +1,13 @@
 import {Card, Table, Tag, Button} from 'antd';
 import React, { useLayoutEffect } from "react";
-import { Link } from 'react-router-dom';
+import { Routes, Route, useNavigate, useParams, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFlag } from '@fortawesome/free-solid-svg-icons'
 
 const { useState, useEffect } = React;
 
 const ClassificationList = () => {
+    const navigate = useNavigate()
     let [classification, setClassification] = useState([]);
     let [steste, setSteste] = useState({
         loading: true
@@ -50,7 +51,13 @@ const ClassificationList = () => {
         if (flagStatus === 5) {
             return <Tag color={'red'}><FontAwesomeIcon icon={faFlag} /></Tag>
         }
-        console.log(flagStatus)
+    }
+    const goTo = (id) => {
+        const value = classification.find(element => element.id == id)
+        navigate(`/register-classification/${id}`,{state: value})
+    }
+    const edit = (id) => {
+        return <Button  onClick={ () => goTo(id)}>Editar</Button>
     }
     const tableColumn = [
         {
@@ -78,7 +85,13 @@ const ClassificationList = () => {
             dataIndex: 'flag',
             key: 'flag',
             render: renderFlagStatus
-        }
+        },
+        {
+            title: 'Editar',
+            dataIndex: 'id',
+            key: 'id',
+            render: edit
+        },
     ];
     const addNewClassification = () => {
             return (<Link to={'/register-classification'}>

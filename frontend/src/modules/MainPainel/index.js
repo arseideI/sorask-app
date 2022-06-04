@@ -36,7 +36,7 @@ const MainPainel = () => {
             })
           dia += 1
         });
-        console.log(classifications_formatted)
+        
       setGraph3(classifications_formatted)
       let g1 =[]
       s.graph1.forEach(element => {
