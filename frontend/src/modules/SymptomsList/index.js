@@ -91,6 +91,7 @@ const SymptomsList = () => {
                 dataSource={steste.loading ? [] : classification}
                 columns={tableColumn}
                 rowKey="id"
+                pagination={{ pageSize: 9 }}
                 onRow={(classItem)=> ({
                     onClick: () => console.log(classItem.name)
                 })}

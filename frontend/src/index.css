@@ -99,6 +99,14 @@ li.ant-pagination-item-active a {
   border-color:rgb(172, 23, 23) !important ;
 }
 
+.LoginRow {
+  display: flex !important;
+  align-items: center !important;
+}
+.LoginRow #basic{
+  margin: 0 auto !important;
+}
+
 /* https://recharts.org/en-US/examples/StackedBarChart */
 
 /* https://i.ibb.co/LzSmmkJ/logoFull.png */

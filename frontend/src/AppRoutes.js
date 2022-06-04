@@ -1,37 +1,54 @@
-import React from 'react';
-import {BrowserRouter as Router ,Routes, Route } from 'react-router-dom';
-import { Layout, Image } from 'antd';
+import React, {useState, useContext} from 'react';
+import {BrowserRouter as Router ,Routes, Route, Navigate } from 'react-router-dom';
 import DefaultDash from './modules/DefaultDash';
 import logo from './assets/img/logo.jpg'
 
 import ClassificationList from './modules/ClassificationList';
 import ClassificationRegister from './modules/RegisterClassification';
 import MainPainel from './modules/MainPainel';
-import SideMenu from './components/SideMenu';
 import SymptomsList from './modules/SymptomsList';
 import RegisterSymptom from './modules/RegisterSymptoms';
 import RegisterNurse from './modules/RegisterNurse';
 import NurseList from './modules/NurseList';
 import GenerationPdf from './modules/GenerationPdf';
+import Login from './modules/Login';
+import { AuthProvider, AuthContext } from './contexts/auth';
+
 
 const AppRoutes = ()=>{
+    const Private = ({children}) =>{
+        const { authenticated, loading } = useContext(AuthContext)
+        if(loading){
+            return <>Carregando...</>
+        }
+        if(!authenticated){
+            return <Navigate to="/login"/>
+        }
+
+        return children
+    }
     return(
-        <Routes>
-        <Route path="/" element={<DefaultDash><MainPainel/></DefaultDash>}/>
-        <Route path="/classifications" element={<DefaultDash><ClassificationList/></DefaultDash>}/>
-        <Route path="register-classification" element={<DefaultDash><ClassificationRegister/></DefaultDash>}>
-          <Route path=":classificationId" element={<DefaultDash><ClassificationRegister/></DefaultDash>}/>
-        </Route>
-        <Route path="/symptoms" element={<DefaultDash><SymptomsList/></DefaultDash>}/>
-        <Route path="register-symptoms" element={<DefaultDash><RegisterSymptom/></DefaultDash>}>
-          <Route path=":symptomId" element={<DefaultDash><RegisterSymptom/></DefaultDash>}/>
-        </Route>
-        <Route path="nurses" element={<DefaultDash><NurseList/></DefaultDash>}/>
-        <Route path="register-nurse" element={<DefaultDash><RegisterNurse/></DefaultDash>}>
-          <Route path=":nurseId" element={<DefaultDash><RegisterNurse/></DefaultDash>}/>
-        </Route>
-        <Route path="/pdf" element={<DefaultDash><GenerationPdf/></DefaultDash>}/>
-      </Routes>
+            <AuthProvider>
+            <Routes>
+                <Route path="/login" element={<Login/>}/>
+                <Route path="/" element={<Private><DefaultDash><MainPainel/></DefaultDash></Private>}/>
+                <Route path="/classifications" element={<Private><DefaultDash><ClassificationList/></DefaultDash></Private>}/>
+                <Route path="register-classification" element={<Private><DefaultDash><ClassificationRegister/></DefaultDash></Private>}>
+                    <Route path=":classificationId" element={<Private><DefaultDash><ClassificationRegister/></DefaultDash></Private>}/>
+                </Route>
+                <Route path="/symptoms" element={<Private><DefaultDash><SymptomsList/></DefaultDash></Private>}/>
+                <Route path="register-symptoms" element={<Private><DefaultDash><RegisterSymptom/></DefaultDash></Private>}>
+                    <Route path=":symptomId" element={<Private><DefaultDash><RegisterSymptom/></DefaultDash></Private>}/>
+                </Route>
+                <Route path="nurses" element={<Private><DefaultDash><NurseList/></DefaultDash></Private>}/>
+                <Route path="register-nurse" element={<Private><DefaultDash><RegisterNurse/></DefaultDash></Private>}>
+                    <Route path=":nurseId" element={<Private><DefaultDash><RegisterNurse/></DefaultDash></Private>}/>
+                </Route>
+                <Route path="/pdf" element={<Private><DefaultDash><GenerationPdf/></DefaultDash></Private>}/>
+            </Routes>
+        </AuthProvider>
+
+        
     );
 }
 
