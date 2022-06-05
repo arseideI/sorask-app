@@ -119,8 +119,9 @@ class Classification():
             symptoms_id_list.append(
                 int(symp.split("$")[0])
             )
-        internal = int(classification.get("internal"))
-        setor = int(classification.get("setor")[0])
+        setor_text = classification.get("setor")[0]
+        internal = int(classification.get("internal",1))
+        setor = int(setor_text)
         heart = classification.get("heart", "")
         arterial = classification.get("arterial","")
         temperature = classification.get("temperature","")
@@ -130,8 +131,10 @@ class Classification():
         entry_date = datetime.today()
 
         query = f"""(ID_NURSE, ID_PATIENT, ID_FLAG, INTERNAL, SETOR, DT_PATIENT_ENTRY, HEART, ARTERIAL, TEMPERATURE, RESPIRATORY, OXYGEN, OBSERVATION) VALUES ('{id_nurse}','{id_patient}', '{id_flag}', '{internal}', '{setor}', '{entry_date}', '{heart}', '{arterial}', '{temperature}', '{respiratory}', '{oxygen}', '{observation}')"""
+        print("Classificação==========q===============: ",query)
         try:
             data = self.database.insert(query=query)
+            print("Classificação=========================: ",data)
         except Exception as exc:
             logging.exception(f"[SYMPTOM][register_symptom] Erro ao inserir novo sintoma: {exc} ")
         if data.get("id"):

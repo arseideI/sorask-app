@@ -14,6 +14,7 @@ const ClassificationRegister = () => {
     let requestId = parseInt(params.classificationId)
     const navigate = useNavigate()
     let [symptoms, setSymptoms] = useState([]);
+    let [SelectedSymptoms, setSelectedSymptoms] = useState([]);
     let [flag, setFlag] = useState(null);
     let [steste, setSteste] = useState({
         loading: true
@@ -52,7 +53,7 @@ const ClassificationRegister = () => {
         let patient_list = []
         s.patients.forEach(element => {
             let values = "" + element.id + ""
-            patient_list.push(<Option key={element.id} value={values}>{element.name}</Option>)
+            patient_list.push(<Option key={element.id} value={values}>{element.cns}</Option>)
         });
         setPatients(patient_list)
 
@@ -63,7 +64,9 @@ const ClassificationRegister = () => {
         setSymptoms(symptom_list)
 
     }
-    
+    const handlerUser = (value) =>{
+        setClassification({name:value})
+    }
     function handleChange(value) {
         var indicator = 0
         if (value.length == 0){
@@ -86,7 +89,7 @@ const ClassificationRegister = () => {
     const onFinish = (values) => {
         const user_data = JSON.parse(localStorage.getItem('user'))
 
-        values.id_nurse = user_data.id
+        values.id_nurse = user_data.id_nurse
         if(requestId){
         fetch(`http://192.168.1.17:5000/classification/${requestId}`, {
             method: 'PUT',
@@ -168,6 +171,7 @@ const ClassificationRegister = () => {
                             showSearch
                             placeholder="Digite o nome ou o numero da cns"
                             optionFilterProp="children"
+                            onChange={handlerUser}
                             filterOption={(input, option) =>
                             option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                             }

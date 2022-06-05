@@ -73,8 +73,8 @@ const NurseList = () => {
         title="Tem certeza que deseja deletar?"
         onConfirm={confirm}
         onCancel={cancel}
-        okText="Yes"
-        cancelText="No"
+        okText="Sim"
+        cancelText="Não"
         id={deleteId}
       >
         <a href="#" className='botaoDelete'><Button>Deletar {'\u2800'} <FontAwesomeIcon icon={faTrashCan} /></Button></a>

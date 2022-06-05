@@ -64,6 +64,7 @@ class DataService():
         """
         try:
             query = f"""DELETE FROM {self.table} {id_query}"""
+            
             self.connect.execute(query)
             self.mysql.connection.commit()
         except Exception as exc:

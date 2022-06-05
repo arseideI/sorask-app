@@ -12,8 +12,19 @@ class User:
         return data
 
     def get_user_by_email(self, email: str):
-        query = f"WHERE TX_MAIL='{email}'"
-        data = self.database.get_by_id(query=query)
+        query =f"""
+            SELECT 
+            TB1.ID_USER,
+            TB1.NM_USER,
+            TB1.NM_USER_TYPE,
+            TB1.TX_MAIL,
+            TB1.PSD_USER,
+            TB2.ID_NURSE
+        FROM T_USER TB1
+        LEFT JOIN T_NURSE TB2 ON TB1.ID_USER = TB2.ID_USER
+        WHERE TB1.TX_MAIL = '{email}'
+        """
+        data = self.database.custom_query(query=query)
         return data
     
     def nurse_list(self):

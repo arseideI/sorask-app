@@ -33,16 +33,17 @@ const DefaultDash = ({children}) =>{
       <Layout>
         <Header style={{backgroundColor:"#FFFFFF" }}>
             <Row>
-              <Col span={18}>
+            <Col className='userName'>
+                <>Olá, <span>{user.name} | {user.type}</span></>
+              </Col>
+              <Col span={15}>
               
               </Col>
               <Col span={2}>
               <Button onClick={handleLogout}><FontAwesomeIcon icon={faRightFromBracket} />{'\u2800'} Sair</Button>
             
               </Col>
-              <Col className='userName'>
-                <>Olá, <span>{user.name} | {user.type}</span></>
-              </Col>
+              
             </Row>
         </Header>
         <Content style={{ backgroundColor: "#f2f2f2" }}>

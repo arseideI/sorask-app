@@ -2,6 +2,7 @@ from services.db import DataService
 from model.user_model import User
 from config import mysql, NURSES_TABLE, build_update_str
 import logging
+from datetime import datetime
 
 class Nurse():
     def __init__(self):
@@ -13,17 +14,15 @@ class Nurse():
         return data
 
     def get_nurse_list(self):
-        data = self.database.get_all_data()
+        query = f''' SELECT * FROM T_NURSE WHERE FL_EXCL IS NULL '''
+        data = self.database.custom_query(query=query)
         return data
     
     def register_nurse(self, nurse_id: int):
        
-        nurse_data = self.get_nurse(id=nurse_id)
-        user_id = nurse_data.get("ID_USER")
-        user_data = User().get_user(id=user_id)
         data = {"erro": "Usuário não encontrado"}
-        if user_data:
-            query = f"(ID_USER) VALUES ({user_id})"
+        if nurse_id:
+            query = f"(ID_USER) VALUES ({nurse_id})"
             try:
                 data = self.database.insert(query=query)
             except Exception as exc:
@@ -32,8 +31,10 @@ class Nurse():
         return data
     
     def delete(self, id: int):
-        query = f"WHERE ID_NURSE={id}"
-        data = self.database.delete(id_query=query)
+        delete_dt = datetime.today()
+        query = f"UPDATE T_NURSE SET FL_EXCL='{delete_dt}' WHERE ID_NURSE={id}"
+
+        data = self.database.custom_query(query=query)
         return data
     
     def update(self, id: int, data:dict):

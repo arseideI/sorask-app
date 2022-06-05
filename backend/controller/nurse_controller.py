@@ -37,7 +37,7 @@ class NurseController:
         return nurse
     
     def delete_nurse(id: int):
-        nurse = Nurse().delete(id=id)
+        nurse = Nurse().delete(id=int(id))
         return nurse
     
     def update_nurse(id: int, data: dict):

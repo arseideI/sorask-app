@@ -12,14 +12,13 @@ class UserController:
                     "user": {}
                 }
         if email:
-            user = self.user.get_user_by_email(email=email)
+            user = self.user.get_user_by_email(email=email)[0]
             formatted_user = self.format_user(user=user)
             user_email = formatted_user.get("email")
             user_pass = formatted_user.get("password")
             if email == user_email and password == user_pass:
                 auth["auth"] = True
                 auth["user"] = formatted_user
-
         return auth
 
     def format_user(self, user:dict):
@@ -27,6 +26,7 @@ class UserController:
             "name": user.get("NM_USER"),
             "email": user.get("TX_MAIL"),
             "id": user.get("ID_USER"),
+            "id_nurse": user.get("ID_NURSE"),
             "password": user.get("PSD_USER"),
             "type": user.get("NM_USER_TYPE"),
             "removed_at": user.get("FL_EXCL")
