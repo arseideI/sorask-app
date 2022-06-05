@@ -8,6 +8,7 @@ const { useState, useEffect } = React;
 
 const RegisterNurse = () => {
     const navigate = useNavigate()
+    const user_local =JSON.parse(localStorage.getItem("user"))
     const location = useLocation();
     let [nurse, setNurse] = useState({});
     let [steste, setSteste] = useState({
@@ -26,6 +27,10 @@ const RegisterNurse = () => {
         }).then(response => response.json())
         .then(data => getValues(data))
         .then(setSteste({loading: false}))
+        }
+        if (user_local.type.toUpperCase() != "ADMIN"){
+            console.log("Diferenteeee")
+            navigate("/")
         }
     }, []);
     

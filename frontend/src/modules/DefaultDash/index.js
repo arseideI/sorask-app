@@ -41,7 +41,7 @@ const DefaultDash = ({children}) =>{
             
               </Col>
               <Col className='userName'>
-                <>Olá, <span>{user.name}</span></>
+                <>Olá, <span>{user.name} | {user.type}</span></>
               </Col>
             </Row>
         </Header>

@@ -9,7 +9,7 @@ const { useState, useEffect } = React;
 
 
 const NurseList = () => {
-
+    const user_local =JSON.parse(localStorage.getItem("user"))
     const navigate = useNavigate()
     let [classification, setClassification] = useState([]);
     let [deletest, setDeletest] = useState();
@@ -80,40 +80,68 @@ const NurseList = () => {
         <a href="#" className='botaoDelete'><Button>Deletar {'\u2800'} <FontAwesomeIcon icon={faTrashCan} /></Button></a>
       </Popconfirm>
     }
-    const tableColumn = [
-        {
-            title: 'Nome',
-            dataIndex: 'name',
-            key: 'name'
-        },
-        {
-            title: 'Email',
-            dataIndex: 'email',
-            key: 'email'
-        },
-        {
-            title: 'Cargo',
-            dataIndex: 'type',
-            key: 'type'
-        },
-        {
-            title: 'Deletar',
-            dataIndex: 'delete',
-            key: 'delete',
-            render: buttonDelete
-        },
-        {
-            title: 'Editar',
-            dataIndex: 'id',
-            key: 'id',
-            render: edit
-        },
+    
+    let tableColumn = {}
+    if (user_local.type.toUpperCase() == "ADMIN"){
+        tableColumn = [
+            {
+                title: 'Nome',
+                dataIndex: 'name',
+                key: 'name'
+            },
+            {
+                title: 'Email',
+                dataIndex: 'email',
+                key: 'email'
+            },
+            {
+                title: 'Cargo',
+                dataIndex: 'type',
+                key: 'type'
+            },
+            {
+                title: 'Deletar',
+                dataIndex: 'delete',
+                key: 'delete',
+                render: buttonDelete
+            },
+            {
+                title: 'Editar',
+                dataIndex: 'id',
+                key: 'id',
+                render: edit
+            },]
+    }else{
 
-    ];
+        tableColumn = [
+            {
+                title: 'Nome',
+                dataIndex: 'name',
+                key: 'name'
+            },
+            {
+                title: 'Email',
+                dataIndex: 'email',
+                key: 'email'
+            },
+            {
+                title: 'Cargo',
+                dataIndex: 'type',
+                key: 'type'
+            }]
+            
+    }
+    
+
+
+  
     const addNewClassification = () => {
-            return (<Link to={'/register-nurse'}>
-                <Button>Adicionar profissional {'\u2800'} <FontAwesomeIcon icon={faUserNurse} /></Button>
-            </Link>);
+        if (user_local.type.toUpperCase() != "ADMIN"){
+            return (<></>)
+        }
+        return (<Link to={'/register-nurse'}>
+            <Button>Adicionar profissional {'\u2800'} <FontAwesomeIcon icon={faUserNurse} /></Button>
+        </Link>);
     }
     
     return (
