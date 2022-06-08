@@ -83,7 +83,7 @@ const GenerationPdf = () =>{
         <Card title={"Relatório"} style={{margin: 20}}>
             <span>
               Aqui você poderar realizar o download do relatório referente aos ultimos 7 dias, contendo: <br/>
-              • Sintomas mais frequêntes <br/>
+              • Sintomas mais frequentes <br/>
               • Quantidade de pacientes<br/>
               • Complexidade de casos<br/><br/><br/>
             </span>

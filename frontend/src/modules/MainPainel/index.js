@@ -156,7 +156,7 @@ height: PropTypes.number,
                 <Row className='linha'>
                 <Col span={12} className="BoxCard">
                     {/* GRID 1 */}
-                    < div className="titleBox">Sintomas Frequêntes - Hoje</div>
+                    < div className="titleBox">Sintomas Frequentes - 24 Horas</div>
                     <>
                     <ResponsiveContainer width="100%" height="80%" className="blockCard" >
                     <BarChart
@@ -184,7 +184,7 @@ height: PropTypes.number,
                 </Col>
                 <Col span={12} className="BoxCard">
                     {/* GRID 2 */}
-                    < div className="titleBox">Complexidade de risco - Hoje</div>
+                    < div className="titleBox">Complexidade de risco - 24 Horas</div>
                     <>
                         <ResponsiveContainer width="100%" height="80%" className="blockCard">
                             <PieChart width={400} height={400}>
@@ -212,7 +212,7 @@ height: PropTypes.number,
             <Row className='linha'>
                 <Col span={12} className="BoxCard">
                     {/* GRID 3 */}
-                    < div className="titleBox">Sintomas Frequêntes - 7 dias</div>
+                    < div className="titleBox">Sintomas Frequentes - 7 dias</div>
                     <>
                     <ResponsiveContainer width="100%" height="80%" className="blockCard">
         <ComposedChart
