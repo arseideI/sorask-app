@@ -13,6 +13,8 @@ class Symptom():
 
     def get_symptom_list(self):
         data = self.database.get_all_data()
+        for symptom in data:
+            symptom["HASH_NAME"] = f"{symptom['ID_SYMPTOM']}${symptom['NM_SYMPTOM']}${symptom['ID_FLAG']}"
         return data
     
     def register_symptom(self, symptom: dict):
@@ -33,15 +35,10 @@ class Symptom():
     
     def update(self, id: int, data:dict):
         values = ""
-        if data.get("name", None):
-            if type(data["name"]) == str:
-                values += f"NM_SYMPTOM='{data.get('name')}'"
-        if data.get("flag"):
-            if values:
-                values += ", "
-            values += f"ID_FLAG={data.get('flag', None)}"
-
-        query = f"SET {values} WHERE ID_SYMPTOM={id}"
+        name = data.get("name", None)
+        flag = data.get("flag")
+    
+        query = f"SET NM_SYMPTOM='{name}', ID_FLAG='{flag}' WHERE ID_SYMPTOM={id}"
 
         changed = self.database.update(query=query)
         return changed

@@ -64,6 +64,7 @@ class DataService():
         """
         try:
             query = f"""DELETE FROM {self.table} {id_query}"""
+            
             self.connect.execute(query)
             self.mysql.connection.commit()
         except Exception as exc:
@@ -87,6 +88,36 @@ class DataService():
             return {"status": "Falha ao editar registro", "msg": str(exc)}
         self.connect.close()
         return {"status": "Atualizado com sucesso", "id": self.connect.lastrowid}
+    
+    def get_interval_symptoms(self, days: int):
+        query = f"""
+
+        SELECT TB1.ID_SYMPTOM, TB2.NM_SYMPTOM, COUNT(*) AS QNT FROM T_CLASSIFICATION_SYMPTOM TB1
+        INNER JOIN T_SYMPTOM TB2 ON TB1.ID_SYMPTOM = TB2.ID_SYMPTOM
+        WHERE ID_PATIENT_CLASSIFICATION IN 
+        (SELECT ID_PATIENT_CLASSIFICATION FROM T_PATIENT_CLASSIFICATION WHERE DT_PATIENT_ENTRY > NOW() - interval {days} day)
+        GROUP BY ID_SYMPTOM
+        ORDER BY QNT DESC
+        LIMIT 10;
+
+        """
+        result = self.custom_query(query=query)
+
+        return result
+    
+    def get_interval_flags(self, days: int):
+        query = f"""
+
+        SELECT ID_FLAG, COUNT(*) FROM db.T_PATIENT_CLASSIFICATION
+        WHERE DT_PATIENT_ENTRY > NOW() - interval {days} day
+        GROUP BY ID_FLAG
+        LIMIT 10;
+
+
+        """
+        result = self.custom_query(query=query)
+
+        return result
 
     def get_table_columns(self):
         """

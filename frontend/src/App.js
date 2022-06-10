@@ -1,11 +1,10 @@
-import React, {useState, useEffect } from 'react'
+import React from 'react';
+import AppRoutes from './AppRoutes';
+
 
 export default function App() {
-  
+  document.title = "Sorask"
   return (
-    <div>
-
-      <h1>Frontend brother!</h1>
-    </div>
+    <AppRoutes/>
   )
 }

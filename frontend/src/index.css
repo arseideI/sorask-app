@@ -11,3 +11,107 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.ant-btn-primary {
+  background-color: #35D49B !important;
+  border-color:#35D49B !important
+}
+
+.ant-pagination-item-active{
+  border-color:#35D49B !important;
+}
+
+li.ant-pagination-item-active a {
+  color:#35D49B !important;
+}
+
+.ant-menu-item-selected {
+  background-color: #35D49B !important;
+}
+
+.ant-menu-item-selected span {
+  color: white;
+}
+
+.ant-menu-item-active{
+  color: #35D49B !important;
+}
+
+.ant-card-extra .ant-btn-default {
+  border-color:#35D49B !important;
+  color: #35D49B;
+}
+
+.ant-card-extra:hover .ant-btn-default{
+  color: #fff !important;
+  background-color: #35D49B !important;
+}
+.ant-form-item {
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+}
+
+.flags .ant-form-item-control-input-content label{
+  margin: 5px !important;
+  font-size: 18pt !important;
+  border: 2px solid !important;
+
+}
+
+.flags .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+  background-color: #e2e2e2;
+}
+.labelTitle .ant-form-item-label label{
+  color: #00bee0 !important;
+  font-weight: bold;
+}
+
+.divisor{
+  background: #35D49B !important;
+  height: 2px;
+}
+
+.linha {
+  height: 350px;
+}
+
+.titleBox{
+  color: rgb(70, 70, 70) !important;
+  text-transform: uppercase !important;
+  font-weight: bold;
+  border-bottom: #35D49B 2px solid !important;
+  margin-bottom: 5px;
+}
+
+.BoxCard{
+  padding: 15px;
+
+}
+
+.blockCard{
+  background-color: #e6e6e6;
+  border-radius: 23px;
+  padding: 5px;
+}
+
+.botaoDelete:hover .ant-btn-default{
+  color: rgb(172, 23, 23) !important;
+  border-color:rgb(172, 23, 23) !important ;
+}
+
+.LoginRow {
+  display: flex !important;
+  align-items: center !important;
+}
+.LoginRow #basic{
+  margin: 0 auto !important;
+}
+.userName {
+  font-size: 12pt;
+}
+.userName span{
+  color: #1b7a58;
+}
+/* https://recharts.org/en-US/examples/StackedBarChart */
+
+/* https://i.ibb.co/LzSmmkJ/logoFull.png */
