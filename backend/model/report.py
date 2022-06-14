@@ -58,7 +58,7 @@ class Report:
           "bold": True,
           "margin": [15,25,0,20]
         },
-        {"text": 'Sintomas mais frequêntes - 24 horas', "fontSize": 14, "bold": True, "margin":[35, 20, 0, 8]},
+        {"text": 'Sintomas mais frequentes - 24 horas', "fontSize": 14, "bold": True, "margin":[35, 20, 0, 8]},
         {
           "table": {
             "headerRows":1,
@@ -67,7 +67,7 @@ class Report:
           "layout": 'lightHorizontalLines',
           "margin": [35, 0, 0,0]
         },
-        {"text": 'Sintomas mais frequêntes - 7 dias', "fontSize": 14, "bold": True, "margin":[35, 20, 0, 8]},
+        {"text": 'Sintomas mais frequentes - 7 dias', "fontSize": 14, "bold": True, "margin":[35, 20, 0, 8]},
         {
           "table": {
             "headerRows":1,
